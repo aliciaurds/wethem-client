@@ -34,8 +34,6 @@ function Signup() {
 
   const handleSignup = async (e) => {
     e.preventDefault();
-
-    // ... contactar al backend para registrar al usuario aqui
     try {
       const newUser = {
         firstName,

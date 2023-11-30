@@ -1,6 +1,8 @@
 import {useState } from "react";
-
+import { useNavigate } from "react-router-dom";
+import service from "../../services/config";
 function Login() {
+  const navigate = useNavigate();
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -13,7 +15,22 @@ function Login() {
   const handleLogin = async (e) => {
     e.preventDefault();
 
-    // ... contactar al backend para validar credenciales de usuario aqui
+    try {
+      const credentials = { email, password };
+      const response = await service.post("/auth/login", credentials);
+      console.log(response);
+      //store safely the token in localStorage
+      localStorage.setItem("authToken", response.data.authToken) 
+    
+      navigate("/"); //!Testing
+    } catch (err) {
+      console.log(err);
+      if (err.response && err.response.status === 400) {
+        setErrMessage(err.response.data.errMessage);
+      } else {
+        navigate("/error");
+      }
+    }
     
   };
 
