@@ -6,12 +6,16 @@ function Footer() {
     bottom: 0,
     textAlign: "center",
     padding: "10px 0",
+    backgroundColor: "lightgrey",
+    width: "100%",
+
   }
   const containerStyles = {
     display: "flex",
     flexDirection: "row",
     justifyContent: "space-around",
-    alignItems: "center",    
+    alignItems: "center",  
+
   }
   return (
     <div style={containerStyles}>

@@ -8,3 +8,47 @@
 body {
   font-family: 'Inter Tight', sans-serif;
 }
+
+p.category-label {
+  color: red;
+  cursor: pointer;
+  margin: 0;
+}
+/* This is the dropdown menu. Initially, it's set to display: none;, which means it's hidden by default. When the isActive class is added to this element, it changes its display property to block, making it visible. z-index property ensures that the dropdown menu appears above other content  */
+ul.category-menu {
+  list-style-type: none;
+  padding: 0;
+  margin-top: 5px; 
+  color: red;
+  background: transparent;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  display: none; 
+  z-index: 1;
+}
+
+ul.category-menu.isActive {
+  display: block; 
+  text-align: left;
+  background-color: white;
+ 
+}
+ul.category-menu li a {
+  color: rgb(156, 144, 144);
+  text-decoration: none;
+ 
+}
+.spinner-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh; /*full height*/
+}
+
+.spinner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}

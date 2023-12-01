@@ -1,11 +1,11 @@
-import Logo from "../assets/images/9c9a5dd3d092507c28fe2389d8083468.png"
+import Logo from "../assets/images/wethem.png"
 
 function About() {
   return (
     <div style={{ maxWidth: "1000px", margin: "0 auto" }}>
       <hr />
-      <img src={Logo} alt="logo" width={200} />
-      <h1>WeThem Project ® </h1>
+      <br />
+      <img src={Logo} alt="logo" width={300} />
       <div style={{textAlign: "justify", margin: "0 20px"}}>
         <p>The Fibonacci spiral is a sequence of numbers where each number is the
         sum of the two preceding numbers: 0, 1, 1, 2, 3, 5, 8, 13, 21, and so
@@ -20,9 +20,9 @@ function About() {
         predefined standards and find beauty in diversity.</p>
         <p>
         This proportion transcends labels and stereotypes. Just as nature isn't confined by
-        conventions, our clothing collection isn't limited by gender barriers.
-        We believe in the freedom of expression through fashion, where each
-        individual finds their own harmony in dressing. 
+        conventions, our clothing collection isn't limited by gender barriers. That's why
+        you won't find women and men collection. We believe in the freedom of expression through fashion, 
+        where each individual finds their own harmony in dressing. Because clothes should not have gender. 
         </p>
         <p>Here, you won't find anything but clothes. Simply as that.</p>
          <p>Just clothes.</p> 
