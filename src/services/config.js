@@ -1,20 +1,21 @@
 import axios from "axios";
 
 const service = axios.create({
-    baseURL: "http://localhost:5005/api"
-})
+  baseURL: "http://localhost:5005/api",
+});
 
-//para decirle a react que en TODAS las llamadas envie el token. Hacemos lo siguiente
+//send token in ALL requests (safely)
 
-service.interceptors.request.use((req)=>{ //interceptar la llamada antes de salir y añadir info
+service.interceptors.request.use((req) => {
+//get request and add info before it is sent
 
-    const token = localStorage.getItem("authToken")
-    
-    //si el token existe, añadelo al request/llamada
-    if(token){
-        req.headers.authorization = `Bearer ${token}`
-    }
-    return req
-}) 
+  const token = localStorage.getItem("authToken");
 
-export default service
+//if exists, add it with that word we got before in our tokem
+  if (token) {
+    req.headers.authorization = `Bearer ${token}`;
+  }
+  return req;
+});
+
+export default service;

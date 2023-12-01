@@ -1,7 +1,9 @@
-import {useState } from "react";
+import {useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import service from "../../services/config";
+import { AuthContext } from "../../context/auth.context";
 function Login() {
+  const {authenticateUser} = useContext(AuthContext)
   const navigate = useNavigate();
 
   const [email, setEmail] = useState("");
@@ -21,8 +23,10 @@ function Login() {
       console.log(response);
       //store safely the token in localStorage
       localStorage.setItem("authToken", response.data.authToken) 
+      //before navigating
+      await authenticateUser()
     
-      navigate("/"); //!Testing
+      navigate("/"); //!Testing => luego /all
     } catch (err) {
       console.log(err);
       if (err.response && err.response.status === 400) {
