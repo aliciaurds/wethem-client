@@ -25,7 +25,7 @@ import NotFound from './pages/error/NotFound'
 import IsPrivate from './components/IsPrivate'
 import Footer from './components/Footer'
 import IsAdmin from './components/IsAdmin'
-import CategoriesDetails from './pages/CategoriesDetails'
+import Unauthorized from './pages/error/Unauthorized'
 
 function App() {
   
@@ -59,7 +59,9 @@ function App() {
 
     {/* error routes */}
     <Route path='/error' element = {<Error/>}/>
+    <Route path='/access-denied' element = {<Unauthorized/>}/>
     <Route path='*' element = {<NotFound/>}/>
+    
 
 
     </Routes>

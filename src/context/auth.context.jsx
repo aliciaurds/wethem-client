@@ -1,6 +1,6 @@
 import { createContext, useEffect, useState } from "react";
 import service from "../services/config"
-//todo AQUI TB AÑADO TODO LO DE ADMIN
+
 //first we define component where context get displayed (states)
 
 const AuthContext = createContext()
@@ -11,7 +11,7 @@ function AuthWrapper(props){
     const [loading, setLoading] = useState(true)
     //to check if active:
     const [activeUser, setActiveUser] = useState(null)
-
+    
     const authenticateUser = async () => {
         //send token to BE to validate it
         //verify*
@@ -25,7 +25,7 @@ function AuthWrapper(props){
             console.log(response);
             //bc on the BE auth/verify give us the info of who is the user:
             setActiveUser(response.data.payload)
-
+           
 
 
         }catch(err){
@@ -48,7 +48,8 @@ function AuthWrapper(props){
     //object where I passed all info
     const passedContext = {
         authenticateUser,
-        isLoggedIn
+        isLoggedIn,
+        activeUser
     }
     if(loading){
         return <h3>Loading...</h3>

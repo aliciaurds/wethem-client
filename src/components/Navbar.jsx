@@ -4,6 +4,7 @@ import { AuthContext } from "../context/auth.context";
 import UserLogo from "../assets/images/User-Profile-PNG-Free-Download.png"
 import Logo from "../assets/images/wethem.png"
 
+
 function Navbar() {
   const navStyles = {
     display: "flex",
@@ -20,7 +21,8 @@ function Navbar() {
   cursor: "pointer",
   }
   const navigate = useNavigate()
-  const {isLoggedIn, authenticateUser} = useContext(AuthContext)
+  const {isLoggedIn, authenticateUser, activeUser} = useContext(AuthContext)
+  console.log(activeUser);
 
   const handleLogOut = () =>{
     localStorage.removeItem("authToken");
@@ -30,7 +32,7 @@ function Navbar() {
     navigate("/")
   }
 
-  if(isLoggedIn) {
+  if(isLoggedIn && activeUser && activeUser.role !== 'admin'){ 
     return (
       <nav style={navStyles}>
         
@@ -42,6 +44,19 @@ function Navbar() {
         <button onClick={handleLogOut} style={btnStyles}>Log Out</button>
       </nav>
     );
+  } else if (isLoggedIn && activeUser && activeUser.role === 'admin'){
+    return (
+    <nav style={navStyles}>
+       <NavLink style={{color:"red",textDecoration: "none"}} to="/"><img src={Logo} alt="logo" width={80} /></NavLink> 
+        <NavLink  style={{color:"red",textDecoration: "none"}} to="/category">Categories</NavLink> 
+        <NavLink  style={{color:"red",textDecoration: "none"}} to="/account"><img src={UserLogo} alt="userlogo" width={18} /></NavLink>
+        <NavLink  style={{color:"red",textDecoration: "none"}} to="/wishlist">❤️</NavLink>
+        <NavLink  style={{color:"red",textDecoration: "none"}} to="/shoppingCart">🛒</NavLink>
+        <NavLink  style={{color:"red",textDecoration: "none"}} to="/admin/create">Add Product</NavLink>
+        <NavLink  style={{color:"red",textDecoration: "none"}} to="/admin/edit">Edit Product</NavLink>
+        <button onClick={handleLogOut} style={btnStyles}>Log Out</button>
+    </nav>
+    )
   }
   else{
     return (
