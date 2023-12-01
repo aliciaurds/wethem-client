@@ -1,9 +1,13 @@
-import React from 'react'
+import React from "react";
 
 function Account() {
   return (
-    <div>Account</div>
-  )
+    <div>
+ 
+      <p>Orders</p>
+      <p>Personal Info</p>
+    </div>
+  );
 }
 
-export default Account
+export default Account;

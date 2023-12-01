@@ -9,7 +9,8 @@ function AuthWrapper(props){
     //shared states
     const [isLoggedIn, setIsLoggedIn] = useState(false)
     const [loading, setLoading] = useState(true)
-
+    //to check if active:
+    const [activeUser, setActiveUser] = useState(null)
 
     const authenticateUser = async () => {
         //send token to BE to validate it
@@ -22,6 +23,9 @@ function AuthWrapper(props){
             setIsLoggedIn(true)
             setLoading(false)
             console.log(response);
+            //bc on the BE auth/verify give us the info of who is the user:
+            setActiveUser(response.data.payload)
+
 
 
         }catch(err){
@@ -29,6 +33,7 @@ function AuthWrapper(props){
             setIsLoggedIn(false);
             setLoading(false)
             console.log(err);
+            setActiveUser(null)
         }
     }
 

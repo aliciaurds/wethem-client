@@ -37,6 +37,10 @@ function Login() {
     }
     
   };
+  const toSignUp = () => {
+    navigate("/signup"); 
+  };
+
 
   return (
     <div>
@@ -67,6 +71,8 @@ function Login() {
         <button type="submit">Log In</button>
         <p style={{ color: "red" }}>{errMessage}</p>
       </form>
+      <p>Not registered yet?</p>
+      <button onClick={toSignUp}>Sign Up</button>
     </div>
   );
 }

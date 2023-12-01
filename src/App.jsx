@@ -25,6 +25,7 @@ import NotFound from './pages/error/NotFound'
 import IsPrivate from './components/IsPrivate'
 import Footer from './components/Footer'
 import IsAdmin from './components/IsAdmin'
+import CategoriesDetails from './pages/CategoriesDetails'
 
 function App() {
   
@@ -39,7 +40,8 @@ function App() {
     <Route path='/login' element={<Login/>}/>
     <Route path='/all' element={<AllProducts/>}/>
     <Route path='/about' element={<About/>}/>
-    <Route path='/category/:category' element={<Categories/>}/>
+    <Route path='/category' element={<Categories/>}/>
+    <Route path='/category/:category' element={<CategoriesDetails/>}/>
     <Route path='/product/:productId/details' element = {<ProductDetails/>}/>
 
     {/* private routes */}
