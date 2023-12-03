@@ -2,8 +2,9 @@ import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import service from "../services/config";
 
-function TodoEdit() {
+function AdminEdit() {
   const params = useParams()
+  console.log(params.productId);
   const navigate = useNavigate()
 
   const [name, setName] = useState("");
@@ -24,15 +25,15 @@ function TodoEdit() {
   const handleCategoryChange = (e) => setCategory(e.target.value);
 
   useEffect(()=>{
-    getData()
+    productData()
   },[])
 
-  const getData = async () => {
+  const productData = async () => {
     try {
       const response = await service.get(
         `/products/${params.productId}/update`
       );
-      console.log(response);
+      // console.log(response);
       setName(response.data.name)
       setDescription(response.data.description)
       setPrice(response.data.price)
@@ -48,7 +49,7 @@ function TodoEdit() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const updatedTodo ={
+    const updatedProduct ={
       name,
       description,
       price,
@@ -59,8 +60,8 @@ function TodoEdit() {
      
     }
     try{
-      await service.put(`/products/${params.productId}/update`, updatedTodo)
-      navigate("/all")//!PROVISIONAL, deberia navegar a la pagina de detalles
+      await service.put(`/products/${params.productId}/update`, updatedProduct)
+      navigate(`/admin/edit/${params.productId}`)
     }
     catch(err){
       console.log(err);
@@ -69,7 +70,7 @@ function TodoEdit() {
   };
   const handleDelete = async()=>{
     try{
-      await service.delete(`/product/${params.todoId}/delete`)
+      await service.delete(`/product/${params.productId}/delete`)
       navigate("/all")
 
     }
@@ -78,10 +79,36 @@ function TodoEdit() {
       navigate("/error")
     }
   }
+  const sizeOptions = ["Small", "Medium", "Large"];
 
+  const colorOptions = [
+    "Black",
+    "White",
+    "Green",
+    "Yellow",
+    "Grey",
+    "Orange",
+    "Pink",
+    "Grey",
+    "Brown",
+    "Purple",
+    "Red",
+  ];
+
+  const categoryOptions = [
+    "Skirts",
+    "Dresses",
+    "Suits",
+    "Shirts",
+    "Trousers",
+    "Jeans",
+    "Sport",
+    "Coats",
+    "Sweaters and Jackets",
+    "Accessories",
+  ];
   return (
     <div>
-      <h3>Edit</h3>
 
       <form onSubmit={handleSubmit}>
         <label htmlFor="Name">Name: </label>
@@ -165,4 +192,4 @@ function TodoEdit() {
   );
 }
 
-export default TodoEdit;
+export default AdminEdit;

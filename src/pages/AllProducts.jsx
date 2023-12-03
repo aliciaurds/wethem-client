@@ -2,6 +2,8 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import service from "../services/config";
 import { RingLoader } from "react-spinners";
+//import components
+import ProductCard from "../components/ProductCard";
 function AllProducts() {
   const [allProducts, setAllProducts] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
@@ -31,13 +33,13 @@ function AllProducts() {
   return (
     <div>
       <h3>All Products</h3>
-      {allProducts.map((eachProduct) => {
-        return (
-          <div key={eachProduct._id}>
-            <Link to={`/products/${eachProduct._id}/details`} >{eachProduct.name}</Link>
-          </div>
-        );
-      })}
+      <div className="product-list">
+        {allProducts.map((eachProduct) => (
+          <Link key={eachProduct._id} to={`/products/${eachProduct._id}/details`}>
+            <ProductCard product={eachProduct} />
+          </Link>
+        ))}
+      </div>
     </div>
   )
 }

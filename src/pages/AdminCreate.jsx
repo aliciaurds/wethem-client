@@ -34,7 +34,7 @@ function AdminCreate() {
     };
     try {
       const response = await service.post("/products/create", newProduct);
-      console.log(response);
+      // console.log(response);
       navigate("/all")
     } catch (err) {
       console.log(err);

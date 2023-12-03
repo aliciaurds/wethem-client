@@ -20,7 +20,6 @@ function Login() {
     try {
       const credentials = { email, password };
       const response = await service.post("/auth/login", credentials);
-      console.log(response);
       //store safely the token in localStorage
       localStorage.setItem("authToken", response.data.authToken) 
       //before navigating

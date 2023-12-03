@@ -8,7 +8,6 @@ import Signup from './pages/auth/Signup'
 import Login from './pages/auth/Login'
 import AllProducts from './pages/AllProducts'
 import About from './pages/About'
-import Categories from './pages/Categories'
 import CategoriesDetails from './pages/CategoriesDetails'
 import ProductDetails from './pages/ProductDetails'
 import Account from './pages/Account'
@@ -41,9 +40,8 @@ function App() {
     <Route path='/login' element={<Login/>}/>
     <Route path='/all' element={<AllProducts/>}/>
     <Route path='/about' element={<About/>}/>
-    <Route path='/category' element={<Categories/>}/>
     <Route path='/category/:category' element={<CategoriesDetails/>}/>
-    <Route path='/product/:productId/details' element = {<ProductDetails/>}/>
+    <Route path='/products/:productId/details' element = {<ProductDetails/>}/>
 
     {/* private routes */}
     <Route path='/account' element = {<IsPrivate><Account/></IsPrivate>}/>
@@ -56,7 +54,7 @@ function App() {
 
     {/* admin routes     */}
     <Route path='/admin/create' element = {<IsAdmin><AdminCreate/></IsAdmin>}/>
-    <Route path='/admin/edit' element = {<IsAdmin><AdminEdit/></IsAdmin>}/>
+    <Route path='/admin/edit/:productId' element = {<IsAdmin><AdminEdit/></IsAdmin>}/>
 
     {/* error routes */}
     <Route path='/error' element = {<Error/>}/>

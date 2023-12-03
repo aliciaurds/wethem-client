@@ -24,7 +24,7 @@ function AuthWrapper(props) {
       //if we get to this point => valid token:
       setIsLoggedIn(true);
       setLoading(false);
-      console.log(response);
+      // console.log(response);
       //bc on the BE auth/verify give us the info of who is the user:
       setActiveUser(response.data.payload);
     } catch (err) {

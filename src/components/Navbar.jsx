@@ -35,12 +35,16 @@ function Navbar() {
   const toggleMenu = () =>{
     setMenuOpen(!menuOpen)
   }
-  const categoryOptions = ['Skirts', 'Dresses', 'Suits', 'Shirts', 'Trousers', 'Jeans', 'Sport', 'Coats', 'Jackets', 'Hoodies', 'Accessories']
+  const categoryOptions = ['See All','Skirts', 'Dresses', 'Suits', 'Shirts', 'Trousers', 'Jeans', 'Sport', 'Coats', 'Jackets', 'Hoodies', 'Accessories']
 
   //when i click on one item, it is hidden again 
-  const handleCategoryItemClick = (event) => {
-    const categoryId = event.target.textContent
-    navigate(`/category/${categoryId}`);
+  const handleCategoryItemClick = (event, categoryName) => {
+    event.preventDefault(); // Prevent default NavLink behavior
+    if(categoryName === 'See All'){
+      navigate("/all")
+    }else{
+      navigate(`/category/${categoryName}`);
+    }
     setMenuOpen(false); // Close the dropdown menu
   };
 
@@ -68,12 +72,14 @@ function Navbar() {
         {/*a list of category options is mapped. NavLink sets up the route for that category and invokes the handleCategoryItemClick which sets the selected category, navigates to the category route, and hides the dropdown menu by setting menuOpen to false  */}
           {categoryOptions.map((category, index) => (
             <li key={index}>
+            {/* use event.preventDefault() in the handleCategoryItemClick function, which is necessary to prevent the default behavior of the link and perform navigation in a controlled manner. If not I will not be redirected to /all  */}
               <NavLink
                 to={`/category/${category}`}
-                onClick={() => handleCategoryItemClick(category)}
+                onClick={(event) => handleCategoryItemClick(event, category)}
               >
                 {category}
               </NavLink>
+              {category === "See All" && <hr/>}
             </li>
           ))}
         </ul>
@@ -99,16 +105,16 @@ function Navbar() {
             <li key={index}>
               <NavLink
                 to={`/category/${category}`}
-                onClick={() => handleCategoryItemClick(category)}
+                onClick={(event) => handleCategoryItemClick(event, category)}
               >
                 {category}
               </NavLink>
+             {category === "See All" && <hr/>}
             </li>
           ))}
         </ul>
       </div>
         <NavLink  style={linkStyles} to="/admin/create">Add Product</NavLink>
-        <NavLink  style={linkStyles} to="/admin/edit">Edit Product</NavLink>
         <button onClick={handleLogOut} style={btnStyles}>Log Out</button>
     </nav>
     )
@@ -126,10 +132,11 @@ function Navbar() {
             <li key={index}>
               <NavLink
                 to={`/category/${category}`}
-                onClick={() => handleCategoryItemClick(category)}
+                onClick={(event) => handleCategoryItemClick(event, category)}
               >
                 {category}
               </NavLink>
+              {category === "See All" && <hr/>}
             </li>
           ))}
         </ul>
