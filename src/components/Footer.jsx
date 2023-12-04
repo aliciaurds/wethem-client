@@ -1,4 +1,6 @@
-import { NavLink } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
+import gitLogo from "../assets/images/GitHub_logo.png"
+import linkedinLogo from "../assets/images/logo-linkedin-icon-4096.png"
 
 function Footer() {
   const footerStyles = {
@@ -20,7 +22,12 @@ function Footer() {
   return (
     <div style={containerStyles}>
         <div style={footerStyles}>
-       <NavLink style={{color:"red", textDecoration: "none"}} to="/about">About Us</NavLink> 
+       <NavLink style={{color:"red", textDecoration: "none"}} to="/about">About Us | </NavLink> 
+       <span>Done by Alicia Urdiales
+        <Link to={"https://github.com/aliciaurds"}> <img src={gitLogo} alt="githubLogo" width={20}/></Link>
+        <Link to={"https://www.linkedin.com/in/alicia-urdiales-101785143/"}> <img src={linkedinLogo} alt="linkedinlogo" width={20}/>
+         </Link>
+        </span> 
        </div>
     </div>
   )

@@ -53,8 +53,8 @@ function App() {
     <Route path='/payment' element = {<IsPrivate><Payment/></IsPrivate>}/>
 
     {/* admin routes     */}
-    <Route path='/admin/create' element = {<IsAdmin><AdminCreate/></IsAdmin>}/>
-    <Route path='/admin/edit/:productId' element = {<IsAdmin><AdminEdit/></IsAdmin>}/>
+    <Route path='/products/create' element = {<IsAdmin><AdminCreate/></IsAdmin>}/>
+    <Route path='/products/:productId/update' element = {<IsAdmin><AdminEdit/></IsAdmin>}/>
 
     {/* error routes */}
     <Route path='/error' element = {<Error/>}/>

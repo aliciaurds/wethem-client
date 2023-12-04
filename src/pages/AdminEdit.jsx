@@ -3,18 +3,19 @@ import { useNavigate, useParams } from "react-router-dom";
 import service from "../services/config";
 
 function AdminEdit() {
-  const params = useParams()
+  const params = useParams();
   console.log(params.productId);
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
   const [price, setPrice] = useState(0);
   const [size, setSize] = useState("");
   const [color, setColor] = useState("");
-  const [image, setImage] = useState("");
+  const [image, setImage] = useState(null);
   const [category, setCategory] = useState("");
 
+  const [isUploading, setIsUploading] = useState(false);
 
   const handleNameChange = (e) => setName(e.target.value);
   const handleDescriptionChange = (e) => setDescription(e.target.value);
@@ -24,32 +25,33 @@ function AdminEdit() {
   const handleImageChange = (e) => setImage(e.target.value);
   const handleCategoryChange = (e) => setCategory(e.target.value);
 
-  useEffect(()=>{
-    productData()
-  },[])
+  useEffect(() => {
+    productData();
+  }, []);
 
   const productData = async () => {
     try {
       const response = await service.get(
-        `/products/${params.productId}/update`
+        `/products/${params.productId}/details`
       );
       // console.log(response);
-      setName(response.data.name)
-      setDescription(response.data.description)
-      setPrice(response.data.price)
-      setSize(response.data.size)
-      setColor(response.data.color)
-      setImage(response.data.image)
-      setCategory(response.data.category)
+      setName(response.data.name);
+      setDescription(response.data.description);
+      setPrice(response.data.price);
+      setSize(response.data.size);
+      setColor(response.data.color);
+      setImage(response.data.image);
+      setCategory(response.data.category);
     } catch (err) {
-      navigate("/error")
+      console.log(err);
+      navigate("/error");
     }
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const updatedProduct ={
+    const updatedProduct = {
       name,
       description,
       price,
@@ -57,59 +59,74 @@ function AdminEdit() {
       color,
       image,
       category,
-     
-    }
-    try{
-      await service.put(`/products/${params.productId}/update`, updatedProduct)
-      navigate(`/admin/edit/${params.productId}`)
-    }
-    catch(err){
+    };
+    try {
+      await service.put(`/products/${params.productId}/update`, updatedProduct);
+      navigate(`/products/${params.productId}/details`);
+    } catch (err) {
       console.log(err);
-      navigate("/error")
+      navigate("/error");
     }
   };
-  const handleDelete = async()=>{
-    try{
-      await service.delete(`/product/${params.productId}/delete`)
-      navigate("/all")
-
-    }
-    catch(err){
+  const handleDelete = async () => {
+    try {
+      await service.delete(`/products/${params.productId}/delete`);
+      navigate("/all");
+    } catch (err) {
       console.log(err);
-      navigate("/error")
+      navigate("/error");
     }
-  }
-  const sizeOptions = ["Small", "Medium", "Large"];
+  };
+  const handleFileUpload = async (event) => {
+    if (!event.target.files[0]) {
+      return;
+    }
+
+    setIsUploading(true);
+
+    const uploadData = new FormData();
+    uploadData.append("image", event.target.files[0]);
+    try {
+      const response = await service.post("/upload", uploadData);
+
+      setImage(response.data.image);
+
+      setIsUploading(false);
+    } catch (error) {
+      navigate("/error");
+    }
+  };
+  const sizeOptions = ["small", "medium", "large"];
 
   const colorOptions = [
-    "Black",
-    "White",
-    "Green",
-    "Yellow",
-    "Grey",
-    "Orange",
-    "Pink",
-    "Grey",
-    "Brown",
-    "Purple",
-    "Red",
+    "black",
+    "white",
+    "green",
+    "yellow",
+    "grey",
+    "orange",
+    "pink",
+    "brown",
+    "purple",
+    "red",
+    "blue",
   ];
 
   const categoryOptions = [
-    "Skirts",
-    "Dresses",
-    "Suits",
-    "Shirts",
-    "Trousers",
-    "Jeans",
-    "Sport",
-    "Coats",
-    "Sweaters and Jackets",
-    "Accessories",
+    "skirts",
+    "dresses",
+    "suits",
+    "shirts",
+    "trousers",
+    "jeans",
+    "sport",
+    "coats",
+    "jackets",
+    "hoodies",
+    "accessories",
   ];
   return (
     <div>
-
       <form onSubmit={handleSubmit}>
         <label htmlFor="Name">Name: </label>
         <input
@@ -175,19 +192,27 @@ function AdminEdit() {
           ))}
         </select>
         <br />
+        <button type="submit">Update</button>
+      </form>
+      <form onSubmit={handleSubmit}>
         <label htmlFor="image">Photo: </label>
         <input
-          type="text"
+          type="file"
           name="image"
-          onChange={handleImageChange}
-          value={image}
+          onChange={handleFileUpload}
+          disabled={isUploading}
         />
-
-        <br />
-        <button type="submit">Update</button>
-        
+        {isUploading ? <h3>... uploading image</h3> : null}
+        {image ? (<div><img src={image} alt="img" width={200} /></div>) : null}
+        <button type="submit">Upload Picture</button>
       </form>
-      <button onClick={handleDelete} style= {{backgroundColor: "darkred", color:"white", border: "none"}} type="submit">Delete</button>
+      <button
+        onClick={handleDelete}
+        style={{ backgroundColor: "darkred", color: "white", border: "none" }}
+        type="submit"
+      >
+        Delete
+      </button>
     </div>
   );
 }

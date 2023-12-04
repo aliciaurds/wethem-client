@@ -35,7 +35,7 @@ function Navbar() {
   const toggleMenu = () =>{
     setMenuOpen(!menuOpen)
   }
-  const categoryOptions = ['See All','Skirts', 'Dresses', 'Suits', 'Shirts', 'Trousers', 'Jeans', 'Sport', 'Coats', 'Jackets', 'Hoodies', 'Accessories']
+  const categoryOptions = ['See All','skirts', 'dresses', 'suits', 'shirts', 'trousers', 'jeans', 'sport', 'coats', 'jackets', 'hoodies', 'accessories']
 
   //when i click on one item, it is hidden again 
   const handleCategoryItemClick = (event, categoryName) => {
@@ -114,7 +114,7 @@ function Navbar() {
           ))}
         </ul>
       </div>
-        <NavLink  style={linkStyles} to="/admin/create">Add Product</NavLink>
+        <NavLink  style={linkStyles} to="/products/create">Add Product</NavLink>
         <button onClick={handleLogOut} style={btnStyles}>Log Out</button>
     </nav>
     )

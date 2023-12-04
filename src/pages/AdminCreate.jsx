@@ -9,8 +9,10 @@ function AdminCreate() {
   const [price, setPrice] = useState(0);
   const [size, setSize] = useState("");
   const [color, setColor] = useState("");
-  const [image, setImage] = useState("");
+  const [image, setImage] = useState(null);
   const [category, setCategory] = useState("");
+
+  const [isUploading, setIsUploading] = useState(false);
 
   const handleNameChange = (e) => setName(e.target.value);
   const handleDescriptionChange = (e) => setDescription(e.target.value);
@@ -35,39 +37,67 @@ function AdminCreate() {
     try {
       const response = await service.post("/products/create", newProduct);
       // console.log(response);
-      navigate("/all")
+      navigate("/all");
     } catch (err) {
       console.log(err);
       navigate("/error");
     }
   };
-  const sizeOptions = ["Small", "Medium", "Large"];
+  const handleFileUpload = async (event) => {
+    // console.log("The file to be uploaded is: ", e.target.files[0]);
+
+    if (!event.target.files[0]) {
+      // to prevent accidentally clicking the choose file button and not selecting a file
+      return;
+    }
+
+    setIsUploading(true); // to start the loading animation
+
+    const uploadData = new FormData(); // images and other files need to be sent to the backend in a FormData
+    uploadData.append("image", event.target.files[0]);
+    //                   |
+    //     this name needs to match the name used in the middleware in the backend => uploader.single("image")
+
+    try {
+      const response = await service.post("/upload", uploadData);
+
+      setImage(response.data.image);
+      //                          |
+      //     this is how the backend sends the image to the frontend => res.json({ imageUrl: req.file.path });
+
+      setIsUploading(false); // to stop the loading animation
+    } catch (error) {
+      navigate("/error");
+    }
+  };
+  const sizeOptions = ["small", "medium", "large"];
 
   const colorOptions = [
-    "Black",
-    "White",
-    "Green",
-    "Yellow",
-    "Grey",
-    "Orange",
-    "Pink",
-    "Grey",
-    "Brown",
-    "Purple",
-    "Red",
+    "black",
+    "white",
+    "green",
+    "yellow",
+    "grey",
+    "orange",
+    "pink",
+    "brown",
+    "purple",
+    "red",
+    "blue",
   ];
 
   const categoryOptions = [
-    "Skirts",
-    "Dresses",
-    "Suits",
-    "Shirts",
-    "Trousers",
-    "Jeans",
-    "Sport",
-    "Coats",
-    "Sweaters and Jackets",
-    "Accessories",
+    "skirts",
+    "dresses",
+    "suits",
+    "shirts",
+    "trousers",
+    "jeans",
+    "sport",
+    "coats",
+    "jackets",
+    "hoodies",
+    "accessories",
   ];
 
   return (
@@ -86,9 +116,10 @@ function AdminCreate() {
         <br />
 
         <label htmlFor="description">Description: </label>
-        <input
+        <textarea
           type="text"
           name="description"
+          rows={3}
           onChange={handleDescriptionChange}
           value={description}
         />
@@ -141,12 +172,13 @@ function AdminCreate() {
         <br />
         <label htmlFor="image">Photo: </label>
         <input
-          type="text"
+          type="file"
           name="image"
-          onChange={handleImageChange}
-          value={image}
+          onChange={handleFileUpload}
+          disabled={isUploading}
         />
-
+        {isUploading ? <h3>... uploading image</h3> : null}
+        {image ? (<div><img src={image} alt="img" width={200} /></div>) : null}
         <br />
 
         <button type="submit">Add Product</button>

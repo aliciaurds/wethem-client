@@ -1,11 +1,12 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 function Account() {
   return (
     <div>
  
       <p>Orders</p>
-      <p>Personal Info</p>
+      <Link to={"/profile"}>Personal Information</Link>
     </div>
   );
 }

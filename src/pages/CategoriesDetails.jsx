@@ -2,7 +2,7 @@
 //Para esto voy a tener que usar mi componente de product card
 //yo lo que quiero es que si me voy a "category/:categoryName" me salgan todos los productos donde product.category sea igual al :category name
 import React, { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import ProductCard from "../components/ProductCard"; 
 import service from "../services/config";
 
@@ -31,7 +31,9 @@ function CategoriesDetails() {
       <h2>Products in {params.category}</h2>
       <div>
         {categoryProducts.map((eachProduct) => (
-          <ProductCard key={eachProduct._id} product={eachProduct} />
+          <Link key={eachProduct._id} to={`/products/${eachProduct._id}/details`}>
+          <ProductCard product={eachProduct} />
+          </Link>
         ))}
       </div>
     </div>
