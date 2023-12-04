@@ -8,6 +8,10 @@
 body {
   font-family: 'Inter Tight', sans-serif;
 }
+body a{
+  color: red;
+  text-decoration: none;
+}
 
 p.category-label {
   color: red;

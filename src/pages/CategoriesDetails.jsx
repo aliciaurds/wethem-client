@@ -26,9 +26,12 @@ function CategoriesDetails() {
         }
       };
 
+      //capitalization
+      const capCategory = params.category.charAt(0).toUpperCase() + params.category.slice(1);
+
   return (
     <div>
-      <h2>Products in {params.category}</h2>
+      <h2>{capCategory}</h2>
       <div>
         {categoryProducts.map((eachProduct) => (
           <Link key={eachProduct._id} to={`/products/${eachProduct._id}/details`}>

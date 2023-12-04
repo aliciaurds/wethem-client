@@ -3,6 +3,8 @@ import { Link, useNavigate, useParams } from "react-router-dom";
 import service from "../services/config";
 import { RingLoader } from "react-spinners";
 import { AuthContext } from "../context/auth.context";
+import WishListLogo from "../assets/images/wishlist.png"
+import CartLogo from "../assets/images/cart.webp"
 
 function ProductDetails() {
   const navigate = useNavigate();
@@ -21,7 +23,7 @@ function ProductDetails() {
     productData(), reviewsByProduct();
   }, []);
 
-  console.log(reviews);
+  // console.log(reviews);
   const productData = async () => {
     try {
       const response = await service.get(
@@ -45,7 +47,7 @@ function ProductDetails() {
   };
   const addReview = async (comment, rating) => {
     try {
-      const response = await service.post(`/review/${params.productId}/add`, {
+       await service.post(`/review/${params.productId}/add`, {
         comment,
         rating,
       });
@@ -59,7 +61,7 @@ function ProductDetails() {
   };
   const deleteReview = async (reviewId) => {
     try {
-      const response = await service.delete(`/review/${reviewId}/delete`);
+       await service.delete(`/review/${reviewId}/delete`);
       reviewsByProduct(); // Actualizar la lista de revisiones después de eliminar una
     } catch (error) {
       console.error(error);
@@ -70,14 +72,29 @@ function ProductDetails() {
     if (reviews.length === 0) {
       return "";
     }
-
     const totalRating = reviews.reduce(
       (accumulator, review) => accumulator + review.rating,
       0
     );
     const averageRating = totalRating / reviews.length;
-    return averageRating.toFixed(1); // Redondear a un decimal
+    return averageRating.toFixed(1);
   };
+  const addToWishlist = async () => {
+    try {
+      if (!isLoggedIn) {
+        navigate("/login");
+        return;
+      }
+      await service.post(`profile//wishlist/${params.productId}/add`);
+      navigate("/wishlist")
+     
+    } catch (error) {
+      console.error(error);
+      
+    }
+  };
+  
+  //variable to check if user is logged in, active and it's role its admin 
   const isAdmin = isLoggedIn && activeUser && activeUser.role === "admin";
 
   if (isLoading) {
@@ -89,6 +106,11 @@ function ProductDetails() {
       </div>
     );
   }
+  //capitalization
+  function capitalize(str) {
+    return str.charAt(0).toUpperCase() + str.slice(1);
+  }
+
 
   return (
     <div>
@@ -98,15 +120,16 @@ function ProductDetails() {
       <h3>{details.name}</h3>
       <div>
         <p>
-          <button>❤️</button> <button>🛒</button>
+          <button onClick={addToWishlist}><img src={WishListLogo} alt="wishlistlogo" width={20} /></button> 
+          <Link to={"/shoppingCart"}><img src={CartLogo} alt="cartlogo" width={18}/></Link>
         </p>
       </div>
       <img src={details.image} alt="clothesPicture" />
       <br />
       <p>Description: {details.description}</p>
       <p>{details.price} €</p>
-      <p>Size: {details.size}</p>
-      <p>Color: {details.color}</p>
+      <p>Size: {capitalize(details.size)}</p>
+      <p>Color: {capitalize(details.color)}</p>
       {isAdmin && (
         <Link to={`/products/${details._id}/update`}>
           <button>Update Product</button>

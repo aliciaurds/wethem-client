@@ -1,8 +1,12 @@
 import React, { useContext, useState } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 import { AuthContext } from "../context/auth.context";
+//import images
 import UserLogo from "../assets/images/User-Profile-PNG-Free-Download.png"
 import Logo from "../assets/images/wethem.png"
+import WishListLogo from "../assets/images/wishlist.png"
+import ShoppingCartLogo from "../assets/images/cart.webp"
+import { Button } from "react-bootstrap";
 
 
 
@@ -55,6 +59,10 @@ function Navbar() {
 
     navigate("/")
   }
+  //capitalization
+  function capitalize(str) {
+    return str.charAt(0).toUpperCase() + str.slice(1);
+  }
 
   if(isLoggedIn && activeUser && activeUser.role !== 'admin'){ 
     return (
@@ -77,16 +85,16 @@ function Navbar() {
                 to={`/category/${category}`}
                 onClick={(event) => handleCategoryItemClick(event, category)}
               >
-                {category}
+                {capitalize(category)}
               </NavLink>
               {category === "See All" && <hr/>}
             </li>
           ))}
         </ul>
       </div>
-        <NavLink  style={linkStyles} to="/account"><img src={UserLogo} alt="userlogo" width={18} /></NavLink>
-        <NavLink  style={linkStyles} to="/wishlist">❤️</NavLink>
-        <NavLink  style={linkStyles} to="/shoppingCart">🛒</NavLink>
+        <NavLink  style={linkStyles} to="/account"><img src={UserLogo} alt="userlogo" width={25} /></NavLink>
+        <NavLink  style={linkStyles} to="/wishlist"><img src={WishListLogo} alt="wishlistlogo" width={20} /></NavLink>
+        <NavLink  style={linkStyles} to="/shoppingCart"><img src={ShoppingCartLogo} alt="cartlogo" width={18} /></NavLink>
         <button onClick={handleLogOut} style={btnStyles}>Log Out</button>
       </nav>
     );
@@ -107,7 +115,7 @@ function Navbar() {
                 to={`/category/${category}`}
                 onClick={(event) => handleCategoryItemClick(event, category)}
               >
-                {category}
+                {capitalize(category)}
               </NavLink>
              {category === "See All" && <hr/>}
             </li>
@@ -134,16 +142,16 @@ function Navbar() {
                 to={`/category/${category}`}
                 onClick={(event) => handleCategoryItemClick(event, category)}
               >
-                {category}
+                {capitalize(category)}
               </NavLink>
               {category === "See All" && <hr/>}
             </li>
           ))}
         </ul>
       </div>
-        <NavLink  style={linkStyles} to="/login"><img src={UserLogo} alt="userlogo" width={18} /></NavLink>
-        <NavLink  style={linkStyles} to="/wishlist">❤️</NavLink>
-        <NavLink  style={linkStyles} to="/shoppingCart">🛒</NavLink>
+        <NavLink  style={linkStyles} to="/login"><img src={UserLogo} alt="userlogo" width={25} /></NavLink>
+        <NavLink  style={linkStyles} to="/wishlist"><img src={WishListLogo} alt="wishlistlogo" width={20} /></NavLink>
+        <NavLink  style={linkStyles} to="/shoppingCart"><img src={ShoppingCartLogo} alt="cartlogo" width={18} /></NavLink>
       </nav>
     );
   }
