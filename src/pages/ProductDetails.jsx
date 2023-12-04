@@ -54,7 +54,7 @@ function ProductDetails() {
       setComment("");
       setRating("0");
       productData();
-      reviewsByProduct();
+      reviewsByProduct();//actualizar reviews
     } catch (error) {
       console.error(error);
     }
@@ -62,7 +62,7 @@ function ProductDetails() {
   const deleteReview = async (reviewId) => {
     try {
        await service.delete(`/review/${reviewId}/delete`);
-      reviewsByProduct(); // Actualizar la lista de revisiones después de eliminar una
+      reviewsByProduct(); // Actualizar reviews después de eliminar una
     } catch (error) {
       console.error(error);
     }
