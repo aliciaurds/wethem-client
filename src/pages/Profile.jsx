@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import service from "../services/config";
 import { Link } from "react-router-dom";
 import { format } from "date-fns";
+import { RingLoader } from "react-spinners";
 
 function Profile() {
   const [user, setUser] = useState(null);
@@ -21,8 +22,15 @@ function Profile() {
 
 
   if (!user) {
-    return <div>Loading...</div>; // You can show a loading spinner or message here
-  }
+      return (
+          <div className="spinner-container">
+        <div className="spinner">
+          <RingLoader color="red" />
+        </div>
+        </div>
+      );
+    }
+  
 
   return (
     <div>

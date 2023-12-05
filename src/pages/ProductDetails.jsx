@@ -97,6 +97,20 @@ function ProductDetails() {
       
     }
   };
+  const addToShoppingCart = async () => {
+    try {
+      if (!isLoggedIn) {
+        navigate("/login");
+        return;
+      }
+      await service.post(`profile/shoppingCart/${params.productId}/add`);
+      navigate("/shoppingCart")
+     
+    } catch (error) {
+      console.error(error);
+      
+    }
+  };
   
   //variable to check if user is logged in, active and it's role its admin 
   const isAdmin = isLoggedIn && activeUser && activeUser.role === "admin";
@@ -125,7 +139,7 @@ function ProductDetails() {
       <div>
         <p>
           <button onClick={addToWishlist}><img src={WishListLogo} alt="wishlistlogo" width={20} /></button> 
-          <Link to={"/shoppingCart"}><img src={CartLogo} alt="cartlogo" width={18}/></Link>
+          <button onClick={addToShoppingCart}><img src={CartLogo} alt="cartlogo" width={20} /></button> 
         </p>
       </div>
       <img src={details.image} alt="clothesPicture" />

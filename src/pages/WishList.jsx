@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useEffect } from "react";
 import service from "../services/config"
-
+import { RingLoader } from "react-spinners";
 
 function wishList() {
   //crear estado que se inicialice en array vacio para almacenar la lista
@@ -25,19 +25,27 @@ function wishList() {
       setIsLoading(false)
     }
   }
+  if (isLoading) {
+    return (
+        <div className="spinner-container">
+      <div className="spinner">
+        <RingLoader color="red" />
+      </div>
+      </div>
+    );
+  }
   return (
     //renderizar un map por cada elemento del array para ver el nombre y la imagen 
     <div>
     <h2>Wishlist</h2>
-    <p>
       {wishList.map((eachProduct) => (
-        <div>
-        <p key={eachProduct._id}>{eachProduct.name}</p>
+        <div key={eachProduct._id}>
+        <p>{eachProduct.name}</p>
         <img src={eachProduct.image} alt="img" width={200} />
         </div>
         
       ))}
-    </p>
+  
   </div>
   )
 }

@@ -15,10 +15,12 @@ function Signup() {
   const [country, setCountry] = useState("");
   const [postalCode, setPostalCode] = useState(0);
   const [dateOfBirth, setDateOfBirth] = useState("");
-  const [profilePic, setProfilePic] = useState("");
+  const [profilePic, setProfilePic] = useState(null);
 
   //error msg handling
   const [errMessage, setErrMessage] = useState("");
+  
+  const [isUploading, setIsUploading] = useState(false);
 
   const handleUsernameChange = (e) => setUsername(e.target.value);
   const handleEmailChange = (e) => setEmail(e.target.value);
@@ -30,7 +32,6 @@ function Signup() {
   const handleCountryChange = (e) => setCountry(e.target.value);
   const handlePostalCodeChange = (e) => setPostalCode(e.target.value);
   const handleDateOfBirthChange = (e) => setDateOfBirth(e.target.value);
-  const handleProfilePicChange = (e) => setProfilePic(e.target.value);
 
   const handleSignup = async (e) => {
     e.preventDefault();
@@ -58,6 +59,25 @@ function Signup() {
       navigate("/error");
       }
       
+    }
+  };
+  const handleFileUpload = async (event) => {
+    if (!event.target.files[0]) {
+      return;
+    }
+
+    setIsUploading(true);
+
+    const uploadData = new FormData();
+    uploadData.append("image", event.target.files[0]);
+    try {
+      const response = await service.post("/upload", uploadData);
+
+      setProfilePic(response.data.image);
+
+      setIsUploading(false);
+    } catch (error) {
+      navigate("/error");
     }
   };
 
@@ -167,14 +187,15 @@ function Signup() {
 
         <br />
 
-        <label>Profile Picture:</label>
+        <label htmlFor="profilePic">Profile Pic: </label>
         <input
           type="file"
           name="profilePic"
-          value={profilePic}
-          onChange={handleProfilePicChange}
+          onChange={handleFileUpload}
+          disabled={isUploading}
         />
-
+        {isUploading ? <h3>... uploading image</h3> : null}
+        {profilePic ? (<div><img src={profilePic} alt="img" width={200} /></div>) : null}
         <br />
 
         <button type="submit">Sign Up</button>

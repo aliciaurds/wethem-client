@@ -19,7 +19,6 @@ function AdminCreate() {
   const handlePriceChange = (e) => setPrice(e.target.value);
   const handleSizeChange = (e) => setSize(e.target.value);
   const handleColorChange = (e) => setColor(e.target.value);
-  const handleImageChange = (e) => setImage(e.target.value);
   const handleCategoryChange = (e) => setCategory(e.target.value);
 
   const handleSubmit = async (e) => {
@@ -35,7 +34,7 @@ function AdminCreate() {
       category,
     };
     try {
-      const response = await service.post("/products/create", newProduct);
+      await service.post("/products/create", newProduct);
       // console.log(response);
       navigate("/all");
     } catch (err) {
@@ -63,7 +62,7 @@ function AdminCreate() {
 
       setImage(response.data.image);
       //                          |
-      //     this is how the backend sends the image to the frontend => res.json({ imageUrl: req.file.path });
+      //     this is how the backend sends the image to the frontend => res.json({ image: req.file.path });
 
       setIsUploading(false); // to stop the loading animation
     } catch (error) {

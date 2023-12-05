@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import service from '../services/config';
 import { useNavigate } from 'react-router-dom';
-import { format } from "date-fns";
+
 
 function ProfileEdit() {
   const navigate = useNavigate();
@@ -36,6 +36,7 @@ function ProfileEdit() {
     //toma la informacion de name y value del evento, donde name es el nombre del campo y value su valor
     const { name, value } = e.target;
     //se toma el objeto user actual (el estado anterior) y crea una copia de este objeto utilizando el operador de propagación (...). Luego, actualiza el valor ([name]) en esta copia con el nuevo valor (value) 
+    
     setUser({ ...user, [name]: value });
   };
 
