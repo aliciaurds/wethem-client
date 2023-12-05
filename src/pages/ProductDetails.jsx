@@ -72,10 +72,14 @@ function ProductDetails() {
     if (reviews.length === 0) {
       return "";
     }
+    //reduce acumula cada elemento del array, toma los parametos de acumulador("suma") que se inizializa en 0 y le suma cada valor de eachReview("cada elemento del array review")
+    //el resultado es la suma total de cada review
+    //https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/Reduce
     const totalRating = reviews.reduce(
-      (accumulator, review) => accumulator + review.rating,
+      (acumulator, eachReview) => acumulator + eachReview.rating,
       0
     );
+    //obtengo la media: esa suma entre la longitud de mi array
     const averageRating = totalRating / reviews.length;
     return averageRating.toFixed(1);
   };
@@ -96,7 +100,11 @@ function ProductDetails() {
   
   //variable to check if user is logged in, active and it's role its admin 
   const isAdmin = isLoggedIn && activeUser && activeUser.role === "admin";
-
+  
+  //capitalization
+  function capitalize(str) {
+    return str.charAt(0).toUpperCase() + str.slice(1);
+  }
   if (isLoading) {
     return (
       <div className="spinner-container">
@@ -105,10 +113,6 @@ function ProductDetails() {
         </div>
       </div>
     );
-  }
-  //capitalization
-  function capitalize(str) {
-    return str.charAt(0).toUpperCase() + str.slice(1);
   }
 
 
@@ -155,7 +159,7 @@ function ProductDetails() {
             }}
           >
             <textarea
-              placeholder="Add your comment"
+              placeholder="Give us your opinion"
               value={comment}
               onChange={(e) => setComment(e.target.value)}
             ></textarea>
@@ -177,7 +181,7 @@ function ProductDetails() {
           <h4>Comments:</h4>
           <p>
             Global rating: {getAverageRating()}/5{" "}
-            {reviews.length ? <span>({reviews.length})</span> : ""}
+            {reviews ? <span>({reviews.length})</span> : ""}
           </p>
           {reviews.map((review) => (
             <div key={review._id}>

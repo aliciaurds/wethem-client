@@ -5,6 +5,7 @@ import { format } from "date-fns";
 
 function ProfileEdit() {
   const navigate = useNavigate();
+  //aqui almacenamos en un solo estado el objeeto user, se reduce codigo ya que no hay que crear un estado por variable ni una funcion de cambio
   const [user, setUser] = useState({
     firstName: '',
     lastName: '',
@@ -32,13 +33,16 @@ function ProfileEdit() {
   };
 
   const handleInputChange = (e) => {
+    //toma la informacion de name y value del evento, donde name es el nombre del campo y value su valor
     const { name, value } = e.target;
+    //se toma el objeto user actual (el estado anterior) y crea una copia de este objeto utilizando el operador de propagación (...). Luego, actualiza el valor ([name]) en esta copia con el nuevo valor (value) 
     setUser({ ...user, [name]: value });
   };
 
   const handleFormSubmit = async (e) => {
     e.preventDefault();
     try {
+      //llamada al BE con los datos del estado user
       await service.put('/profile/edit', user);
       navigate('/profile');
     } catch (error) {

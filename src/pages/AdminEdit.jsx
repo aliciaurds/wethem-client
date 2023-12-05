@@ -22,7 +22,6 @@ function AdminEdit() {
   const handlePriceChange = (e) => setPrice(e.target.value);
   const handleSizeChange = (e) => setSize(e.target.value);
   const handleColorChange = (e) => setColor(e.target.value);
-  const handleImageChange = (e) => setImage(e.target.value);
   const handleCategoryChange = (e) => setCategory(e.target.value);
 
   useEffect(() => {
