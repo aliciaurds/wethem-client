@@ -18,7 +18,8 @@ function ProfileEdit() {
     dateOfBirth: '',
     profilePic: '',
   });
-
+  const [image, setImage] = useState(null)
+  const [isUploading, setIsUploading] = useState(false);
   useEffect(() => {
     userData();
   }, []);
@@ -43,11 +44,35 @@ function ProfileEdit() {
   const handleFormSubmit = async (e) => {
     e.preventDefault();
     try {
+      //actualizacion de propiedades para la vista de profile
+      const formData = new FormData();
+      formData.append('image', image)
       //llamada al BE con los datos del estado user
       await service.put('/profile/edit', user);
       navigate('/profile');
     } catch (error) {
       console.error(error);
+    }
+  };
+  const handleFileUpload = async (event) => {
+    if (!event.target.files[0]) {
+      return;
+    }
+
+    setIsUploading(true);
+
+    const uploadData = new FormData();
+    uploadData.append('image', event.target.files[0]);
+    try {
+      const response = await service.post('/upload', uploadData);
+
+      setImage(response.data.image);
+
+      setUser({ ...user, profilePic: response.data.image });
+
+      setIsUploading(false);
+    } catch (error) {
+      navigate('/error');
     }
   };
 
@@ -84,13 +109,21 @@ function ProfileEdit() {
         name="dateOfBirth"
         value={user.dateOfBirth}
         onChange={handleInputChange}/> <br/>
-
-        <label>Profile Picture:</label>
-        <input type="text" name="profilePic" value={user.profilePic} onChange={handleInputChange} /> <br/>
-
-        
+       
 
         <button type="submit">Save Changes</button>
+        </form>
+      <form onSubmit={handleFormSubmit}>
+        <label htmlFor="image">Profile Picture: </label>
+        <input
+          type="file"
+          name="image"
+          onChange={handleFileUpload}
+          disabled={isUploading}
+        />
+        {isUploading ? <h3>... uploading image</h3> : null}
+        {image ? (<div><img src={image} alt="img" width={200} /></div>) : null}
+        <button type="submit">Upload Picture</button>
       </form>
     </div>
   );
