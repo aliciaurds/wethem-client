@@ -1,11 +1,14 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import service from "../services/config";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { format } from "date-fns";
 import { RingLoader } from "react-spinners";
+import { AuthContext } from "../context/auth.context";
 
 function Profile() {
   const [user, setUser] = useState(null);
+  const navigate = useNavigate()
+  const {authenticateUser } = useContext(AuthContext)
 
   useEffect(() => {
     userData();
@@ -15,6 +18,23 @@ function Profile() {
     try {
       const response = await service.get('/profile'); 
       setUser(response.data);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+  const handleLogOut = () =>{
+    localStorage.removeItem("authToken");
+    //invoke again authenticateUser because once I remove the tokens the states will be changed to false
+    authenticateUser()
+
+    navigate("/")
+  }
+  const deleteAccount = async () => {
+    try {
+      await service.delete('/profile/delete-account');
+      //despues de eliminar la cuenta tambien hay que cerrar sesion 
+      handleLogOut()
+      navigate("/")
     } catch (error) {
       console.error(error);
     }
@@ -48,7 +68,8 @@ function Profile() {
         <p>Date of Birth: {format(new Date(user.dateOfBirth), "dd/MM/yyyy")}</p>
         <img src={user.profilePic} alt="profilePic" width={300} /><br />
         <Link to={"/profile/edit"}>
-         <button>Edit Profile</button> </Link>
+         <button>Edit Profile</button> </Link> <br />
+         <button onClick={deleteAccount}>Delete Account</button>
       </div>
     </div>
   );

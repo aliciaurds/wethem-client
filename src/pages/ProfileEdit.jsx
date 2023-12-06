@@ -75,6 +75,24 @@ function ProfileEdit() {
       navigate('/error');
     }
   };
+  const [newPassword, setNewPassword] = useState('');
+
+  const handlePasswordInputChange = (e) => {
+    setNewPassword(e.target.value);
+  };
+
+  const handlePasswordFormSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      // Lógica para enviar la nueva contraseña al backend
+      await service.put('auth/change-password', { newPassword });
+      // Restablecer el estado del formulario después de actualizar la contraseña
+      setNewPassword('');
+      navigate('/profile');
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
   return (
     <div>
@@ -129,7 +147,19 @@ function ProfileEdit() {
         {image ? (<div><img src={image} alt="img" width={200} /></div>) : null}
         <button type="submit">Upload Picture</button>
       </form>
+      <form onSubmit={handlePasswordFormSubmit}>
+        <h3>Change Password</h3>
+        <label>New Password:</label>
+        <input
+          type="password"
+          value={newPassword}
+          onChange={handlePasswordInputChange}
+        /><br />
+
+        <button type="submit">Change Password</button>
+      </form>
     </div>
+    
   );
 }
 

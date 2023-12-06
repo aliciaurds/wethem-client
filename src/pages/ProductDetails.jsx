@@ -6,6 +6,7 @@ import { AuthContext } from "../context/auth.context";
 import WishListLogo from "../assets/images/wishlist.png"
 import CartLogo from "../assets/images/cart.webp"
 
+const btnStyles = {border: "none", background: "transparent"}
 function ProductDetails() {
   const navigate = useNavigate();
   const params = useParams();
@@ -140,8 +141,8 @@ function ProductDetails() {
       {isUser && (
          <div>
          <p>
-           <button onClick={addToWishlist}><img src={WishListLogo} alt="wishlistlogo" width={20} /></button> 
-           <button onClick={addToShoppingCart}><img src={CartLogo} alt="cartlogo" width={20} /></button> 
+           <button style={btnStyles} onClick={addToWishlist}><img src={WishListLogo} alt="wishlistlogo" width={20} /></button> 
+           <button style={btnStyles} onClick={addToShoppingCart}><img src={CartLogo} alt="cartlogo" width={20} /></button> 
          </p>
        </div>
       )}
@@ -204,7 +205,7 @@ function ProductDetails() {
           {reviews.map((review) => (
             <div key={review._id}>
               <hr />
-              <p>Comment by: {review.username}</p>
+              <p>Comment by: {review.user.username}</p>
               <p>{review.comment}</p>
               <p>
                 Rating:{" "}
@@ -223,7 +224,7 @@ function ProductDetails() {
                   : ""}
               </p>
               {isLoggedIn &&
-                (review.user === activeUser._id ||
+                (review.user._id === activeUser._id ||
                   activeUser.role === "admin") && (
                   <button onClick={() => deleteReview(review._id)}>
                     Delete
