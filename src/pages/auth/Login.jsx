@@ -39,8 +39,6 @@ function Login() {
   const toSignUp = () => {
     navigate("/signup"); 
   };
-
-
   return (
     <div>
       <hr />

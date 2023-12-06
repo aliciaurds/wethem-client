@@ -26,6 +26,7 @@ import IsPrivate from './components/IsPrivate'
 import Footer from './components/Footer'
 import IsAdmin from './components/IsAdmin'
 import Unauthorized from './pages/error/Unauthorized'
+import IsNotLogged from './components/isNotLogged'
 
 function App() {
   
@@ -36,8 +37,8 @@ function App() {
     <br />
     <Routes>
     <Route path='/' element={<Home/>}/>
-    <Route path='/signup' element={<Signup/>}/>
-    <Route path='/login' element={<Login/>}/>
+    <Route path='/signup' element={<IsNotLogged><Signup/></IsNotLogged>}/>
+    <Route path='/login' element={<IsNotLogged><Login/></IsNotLogged>}/>
     <Route path='/all' element={<AllProducts/>}/>
     <Route path='/about' element={<About/>}/>
     <Route path='/category/:category' element={<CategoriesDetails/>}/>
