@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import service from "../services/config";
-
+import { RingLoader } from "react-spinners";
 function AdminCreate() {
   const navigate = useNavigate();
   const [name, setName] = useState("");
@@ -176,7 +176,11 @@ function AdminCreate() {
           onChange={handleFileUpload}
           disabled={isUploading}
         />
-        {isUploading ? <h3>... uploading image</h3> : null}
+        {isUploading ?  <div className="small-spinner-container">
+      <div className="spinner">
+        <RingLoader color="red" size={20} />
+      </div>
+      </div> : null}
         {image ? (<div><img src={image} alt="img" width={200} /></div>) : null}
         <br />
 

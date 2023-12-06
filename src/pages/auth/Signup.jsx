@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import service from "../../services/config";
-
+import { RingLoader } from "react-spinners";
 function Signup() {
   const navigate = useNavigate();
 
@@ -194,7 +194,11 @@ function Signup() {
           onChange={handleFileUpload}
           disabled={isUploading}
         />
-        {isUploading ? <h3>... uploading image</h3> : null}
+        {isUploading ?  <div className="small-spinner-container">
+      <div className="spinner">
+        <RingLoader color="red" size={20} />
+      </div>
+      </div>: null}
         {profilePic ? (<div><img src={profilePic} alt="img" width={200} /></div>) : null}
         <br />
 

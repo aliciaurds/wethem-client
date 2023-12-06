@@ -114,6 +114,7 @@ function ProductDetails() {
   
   //variable to check if user is logged in, active and it's role its admin 
   const isAdmin = isLoggedIn && activeUser && activeUser.role === "admin";
+  const isUser = isLoggedIn && activeUser && activeUser.role === "user";
   
   //capitalization
   function capitalize(str) {
@@ -136,12 +137,15 @@ function ProductDetails() {
         <p>Back</p>
       </Link>
       <h3>{details.name}</h3>
-      <div>
-        <p>
-          <button onClick={addToWishlist}><img src={WishListLogo} alt="wishlistlogo" width={20} /></button> 
-          <button onClick={addToShoppingCart}><img src={CartLogo} alt="cartlogo" width={20} /></button> 
-        </p>
-      </div>
+      {isUser && (
+         <div>
+         <p>
+           <button onClick={addToWishlist}><img src={WishListLogo} alt="wishlistlogo" width={20} /></button> 
+           <button onClick={addToShoppingCart}><img src={CartLogo} alt="cartlogo" width={20} /></button> 
+         </p>
+       </div>
+      )}
+     
       <img src={details.image} alt="clothesPicture" />
       <br />
       <p>Description: {details.description}</p>
@@ -164,7 +168,7 @@ function ProductDetails() {
           </p>
         </div>
       )}
-      {isLoggedIn && (
+      {isUser && (
         <div>
           <form
             onSubmit={(e) => {

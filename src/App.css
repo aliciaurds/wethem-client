@@ -56,3 +56,9 @@ ul.category-menu li a {
   align-items: center;
   justify-content: center;
 }
+.small-spinner-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 15vh;
+}

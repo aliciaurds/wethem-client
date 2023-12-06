@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import service from "../services/config";
-
+import { RingLoader } from "react-spinners";
 function AdminEdit() {
   const params = useParams();
   console.log(params.productId);
@@ -201,7 +201,11 @@ function AdminEdit() {
           onChange={handleFileUpload}
           disabled={isUploading}
         />
-        {isUploading ? <h3>... uploading image</h3> : null}
+        {isUploading ? <div className="small-spinner-container">
+      <div className="spinner">
+        <RingLoader color="red" size={20} />
+      </div>
+      </div>: null}
         {image ? (<div><img src={image} alt="img" width={200} /></div>) : null}
         <button type="submit">Upload Picture</button>
       </form>

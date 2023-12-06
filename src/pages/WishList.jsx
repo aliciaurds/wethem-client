@@ -25,6 +25,20 @@ function wishList() {
       setIsLoading(false)
     }
   }
+  const removeFromWishlist = async (productId) => {
+    try {
+      // Realizar la llamada para eliminar el producto de la lista de deseos
+      await service.delete(`/profile/wishlist/${productId}/delete`);
+  
+      //el filter crea un nuevo array con todos los productos salvo los eliminados, asi que si el id del producto es diferente del id a eliminar la condicion se cumple y por tanto se incluye en el nuevo array
+      const updatedWishList = wishList.filter((eachProduct) => eachProduct._id !== productId);
+      // Actualizar el estado para reflejar el cambio eliminando el producto de la lista
+      setWishList(updatedWishList)
+    } catch (error) {
+      console.log(error);
+
+    }
+  };
   if (isLoading) {
     return (
         <div className="spinner-container">
@@ -41,7 +55,10 @@ function wishList() {
       {wishList.map((eachProduct) => (
         <div key={eachProduct._id}>
         <p>{eachProduct.name}</p>
-        <img src={eachProduct.image} alt="img" width={200} />
+        <img src={eachProduct.image} alt="img" width={200} /><br />
+        <button onClick={() => removeFromWishlist(eachProduct._id)}>
+          Remove
+        </button>
         </div>
         
       ))}

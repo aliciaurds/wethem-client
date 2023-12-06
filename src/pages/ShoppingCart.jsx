@@ -22,6 +22,17 @@ function ShoppingCart() {
       setIsLoading(false)
     }
   }
+  const removeFromShoppingCart = async (productId) => {
+    try {
+      await service.delete(`/profile/shoppingCart/${productId}/delete`);
+
+      const updatedShoppingCart = shoppingCart.filter((eachProduct) => eachProduct._id !== productId);
+      setShoppingCart(updatedShoppingCart)
+    } catch (error) {
+      console.log(error);
+
+    }
+  };
   if (isLoading) {
     return (
         <div className="spinner-container">
@@ -41,6 +52,9 @@ function ShoppingCart() {
         <p >{eachProduct.name}</p>
         <img src={eachProduct.image} alt="img" width={200} />
         <p>{eachProduct.price}€</p>
+        <button onClick={() => removeFromShoppingCart(eachProduct._id)}>
+          Remove
+        </button>
         </div>
         
       ))}

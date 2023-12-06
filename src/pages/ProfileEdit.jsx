@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import service from '../services/config';
 import { useNavigate } from 'react-router-dom';
-
+import { RingLoader } from "react-spinners";
 
 function ProfileEdit() {
   const navigate = useNavigate();
@@ -121,7 +121,11 @@ function ProfileEdit() {
           onChange={handleFileUpload}
           disabled={isUploading}
         />
-        {isUploading ? <h3>... uploading image</h3> : null}
+        {isUploading ? <div className="small-spinner-container">
+      <div className="spinner">
+        <RingLoader color="red" size={20} />
+      </div>
+      </div> : null}
         {image ? (<div><img src={image} alt="img" width={200} /></div>) : null}
         <button type="submit">Upload Picture</button>
       </form>
