@@ -3,10 +3,10 @@ import { Link, useNavigate, useParams } from "react-router-dom";
 import service from "../services/config";
 import { RingLoader } from "react-spinners";
 import { AuthContext } from "../context/auth.context";
-import WishListLogo from "../assets/images/wishlist.png"
-import CartLogo from "../assets/images/cart.webp"
+import WishListLogo from "../assets/images/wishlist.png";
+import CartLogo from "../assets/images/cart.webp";
 
-const btnStyles = {border: "none", background: "transparent"}
+const btnStyles = { border: "none", background: "transparent" };
 function ProductDetails() {
   const navigate = useNavigate();
   const params = useParams();
@@ -48,21 +48,21 @@ function ProductDetails() {
   };
   const addReview = async (comment, rating) => {
     try {
-       await service.post(`/review/${params.productId}/add`, {
+      await service.post(`/review/${params.productId}/add`, {
         comment,
         rating,
       });
       setComment("");
       setRating("0");
       productData();
-      reviewsByProduct();//actualizar reviews
+      reviewsByProduct(); //actualizar reviews
     } catch (error) {
       console.error(error);
     }
   };
   const deleteReview = async (reviewId) => {
     try {
-       await service.delete(`/review/${reviewId}/delete`);
+      await service.delete(`/review/${reviewId}/delete`);
       reviewsByProduct(); // Actualizar reviews después de eliminar una
     } catch (error) {
       console.error(error);
@@ -91,11 +91,9 @@ function ProductDetails() {
         return;
       }
       await service.post(`profile//wishlist/${params.productId}/add`);
-      navigate("/wishlist")
-     
+      navigate("/wishlist");
     } catch (error) {
       console.error(error);
-      
     }
   };
   const addToShoppingCart = async () => {
@@ -105,18 +103,16 @@ function ProductDetails() {
         return;
       }
       await service.post(`profile/shoppingCart/${params.productId}/add`);
-      navigate("/shoppingCart")
-     
+      navigate("/shoppingCart");
     } catch (error) {
       console.error(error);
-      
     }
   };
-  
-  //variable to check if user is logged in, active and it's role its admin 
+
+  //variable to check if user is logged in, active and it's role its admin
   const isAdmin = isLoggedIn && activeUser && activeUser.role === "admin";
   const isUser = isLoggedIn && activeUser && activeUser.role === "user";
-  
+
   //capitalization
   function capitalize(str) {
     return str.charAt(0).toUpperCase() + str.slice(1);
@@ -131,7 +127,6 @@ function ProductDetails() {
     );
   }
 
-
   return (
     <div>
       <Link to={"/all"}>
@@ -139,14 +134,18 @@ function ProductDetails() {
       </Link>
       <h3>{details.name}</h3>
       {isUser && (
-         <div>
-         <p>
-           <button style={btnStyles} onClick={addToWishlist}><img src={WishListLogo} alt="wishlistlogo" width={20} /></button> 
-           <button style={btnStyles} onClick={addToShoppingCart}><img src={CartLogo} alt="cartlogo" width={20} /></button> 
-         </p>
-       </div>
+        <div>
+          <p>
+            <button style={btnStyles} onClick={addToWishlist}>
+              <img src={WishListLogo} alt="wishlistlogo" width={20} />
+            </button>
+            <button style={btnStyles} onClick={addToShoppingCart}>
+              <img src={CartLogo} alt="cartlogo" width={20} />
+            </button>
+          </p>
+        </div>
       )}
-     
+
       <img src={details.image} alt="clothesPicture" />
       <br />
       <p>Description: {details.description}</p>
@@ -205,7 +204,10 @@ function ProductDetails() {
           {reviews.map((review) => (
             <div key={review._id}>
               <hr />
-              <p>Comment by: {review.user.username}</p>
+              <p>
+                Comment by:{" "}
+                {review.user === null ? "Deleted User" : review.user.username}
+              </p>
               <p>{review.comment}</p>
               <p>
                 Rating:{" "}
@@ -224,6 +226,7 @@ function ProductDetails() {
                   : ""}
               </p>
               {isLoggedIn &&
+                review.user !== null &&
                 (review.user._id === activeUser._id ||
                   activeUser.role === "admin") && (
                   <button onClick={() => deleteReview(review._id)}>
