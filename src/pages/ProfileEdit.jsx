@@ -20,6 +20,7 @@ function ProfileEdit() {
   });
   const [image, setImage] = useState(null)
   const [isUploading, setIsUploading] = useState(false);
+  const [loading, setLoading] = useState(true)
   useEffect(() => {
     userData();
   }, []);
@@ -27,9 +28,12 @@ function ProfileEdit() {
   const userData = async () => {
     try {
       const response = await service.get('/profile');
+      console.log(response.data);
+      setLoading(false)
       setUser(response.data);
     } catch (error) {
       console.error(error);
+      setLoading(false)
     }
   };
 
@@ -93,7 +97,15 @@ function ProfileEdit() {
       console.error(error);
     }
   };
-
+  if (loading) {
+    return (
+      <div className="small-spinner-container">
+        <div className="spinner">
+          <RingLoader color="red" size={20} />
+        </div>
+      </div>
+    );
+  }
   return (
     <div>
       <h2>Edit Profile</h2>
@@ -125,7 +137,7 @@ function ProfileEdit() {
         <input
         type="date"
         name="dateOfBirth"
-        value= {user.dateOfBirth}
+        value=  {new Date(user.dateOfBirth).toISOString().split("T")[0]}
         onChange={handleInputChange}/> <br/>
 
         <button type="submit">Save Changes</button>

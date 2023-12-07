@@ -91,7 +91,7 @@ function ProductDetails() {
         navigate("/login");
         return;
       }
-      await service.post(`profile//wishlist/${params.productId}/add`);
+      await service.patch(`profile//wishlist/${params.productId}/add`);
       navigate("/wishlist");
     } catch (error) {
       console.error(error);
@@ -103,7 +103,7 @@ function ProductDetails() {
         navigate("/login");
         return;
       }
-      await service.post(`profile/shoppingCart/${params.productId}/add`);
+      await service.patch(`profile/shoppingCart/${params.productId}/add`);
       navigate("/shoppingCart");
     } catch (error) {
       console.error(error);

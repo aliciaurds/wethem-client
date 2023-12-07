@@ -28,7 +28,7 @@ function wishList() {
   const removeFromWishlist = async (productId) => {
     try {
       // Realizar la llamada para eliminar el producto de la lista de deseos
-      await service.delete(`/profile/wishlist/${productId}/delete`);
+      await service.patch(`/profile/wishlist/${productId}/remove`);
   
       //el filter crea un nuevo array con todos los productos salvo los eliminados, asi que si el id del producto es diferente del id a eliminar la condicion se cumple y por tanto se incluye en el nuevo array
       const updatedWishList = wishList.filter((eachProduct) => eachProduct._id !== productId);

@@ -27,6 +27,7 @@ import Footer from './components/Footer'
 import IsAdmin from './components/IsAdmin'
 import Unauthorized from './pages/error/Unauthorized'
 import IsNotLogged from './components/isNotLogged'
+import PaymentSuccess from './components/PaymentSuccess'
 
 function App() {
   
@@ -62,6 +63,8 @@ function App() {
     <Route path='/access-denied' element = {<Unauthorized/>}/>
     <Route path='*' element = {<NotFound/>}/>
     
+    {/* Stripes */}
+    <Route path="/payment-success" element={ <PaymentSuccess/> }/>
 
 
     </Routes>

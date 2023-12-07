@@ -2,15 +2,18 @@ import { useState } from "react";
 import { useEffect } from "react";
 import service from "../services/config"
 import { RingLoader } from "react-spinners";
+import PaymentIntent from "../components/PaymentIntent";
 
 function ShoppingCart() {
   const [shoppingCart, setShoppingCart] = useState([]);
   const [isLoading, setIsLoading] = useState(true)
+  //*Stripes:
+  const [showPaymentIntent, setShowPaymentIntent] = useState(false)
   useEffect(()=>{
-    shoppingCartProducts()
+    getShoppingCartProducts()
   }, [])
   //obtener con la llamada get la info
-  const shoppingCartProducts = async () => {
+  const getShoppingCartProducts = async () => {
     try {
       const response = await service.get("/profile/shoppingCart")
       console.log(response.data);
@@ -24,10 +27,9 @@ function ShoppingCart() {
   }
   const removeFromShoppingCart = async (productId) => {
     try {
-      await service.delete(`/profile/shoppingCart/${productId}/delete`);
-
-      const updatedShoppingCart = shoppingCart.filter((eachProduct) => eachProduct._id !== productId);
-      setShoppingCart(updatedShoppingCart)
+      await service.patch(`/profile/shoppingCart/${productId}/remove`);
+      getShoppingCartProducts()
+  
     } catch (error) {
       console.log(error);
 
@@ -61,6 +63,13 @@ function ShoppingCart() {
       {/* acumulador: total, eachProduct es cada producto del array y la suma es el acumulador mas el precio de cada producto */}
        <p>Total: {shoppingCart.reduce((total, eachProduct) => total + eachProduct.price, 0)}€</p>
     </div>
+    <div>
+  { 
+    showPaymentIntent === false
+    ? <button onClick={() => setShowPaymentIntent(true)}>Purchase</button> 
+    : <PaymentIntent productsToBuy={shoppingCart}/> 
+  }
+</div>
   </div>
   )
 }
