@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter+Tight&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Fira+Sans+Extra+Condensed&display=swap');
 #root {
   max-width: 1280px;
   margin: 0 auto;
@@ -6,7 +6,7 @@
   text-align: center;
 }
 body {
-  font-family: 'Inter Tight', sans-serif;
+  font-family: 'Fira Sans Extra Condensed', sans-serif;
 }
 body a{
   color: red;

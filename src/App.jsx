@@ -16,7 +16,6 @@ import Profile from './pages/Profile'
 import ProfileEdit from './pages/ProfileEdit'
 import WishList from './pages/WishList'
 import ShoppingCart from './pages/ShoppingCart'
-import Payment from './pages/Payment'
 import AdminCreate from './pages/AdminCreate'
 import AdminEdit from './pages/AdminEdit'
 import Error from './pages/error/Error'
@@ -52,7 +51,7 @@ function App() {
     <Route path='/profile/edit' element = {<IsPrivate><ProfileEdit/></IsPrivate>}/>
     <Route path='/wishlist' element = {<IsPrivate><WishList/></IsPrivate>}/>
     <Route path='/shoppingCart' element = {<IsPrivate><ShoppingCart/></IsPrivate>}/>
-    <Route path='/payment' element = {<IsPrivate><Payment/></IsPrivate>}/>
+    <Route path="/payment-success" element={ <IsPrivate><PaymentSuccess/></IsPrivate> }/>
 
     {/* admin routes     */}
     <Route path='/products/create' element = {<IsAdmin><AdminCreate/></IsAdmin>}/>
@@ -64,7 +63,6 @@ function App() {
     <Route path='*' element = {<NotFound/>}/>
     
     {/* Stripes */}
-    <Route path="/payment-success" element={ <PaymentSuccess/> }/>
 
 
     </Routes>
