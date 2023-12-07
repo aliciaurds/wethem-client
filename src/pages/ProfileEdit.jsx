@@ -121,13 +121,12 @@ function ProfileEdit() {
         <label>Postal Code:</label>
         <input type="text" name="postalCode" value={user.postalCode} onChange={handleInputChange} /> <br/>
 
-        <label>Date of Birth:</label>
+        <label>Date of Birth: </label>
         <input
         type="date"
         name="dateOfBirth"
-        value={user.dateOfBirth}
+        value= {user.dateOfBirth}
         onChange={handleInputChange}/> <br/>
-       
 
         <button type="submit">Save Changes</button>
         </form>

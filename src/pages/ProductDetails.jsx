@@ -5,6 +5,7 @@ import { RingLoader } from "react-spinners";
 import { AuthContext } from "../context/auth.context";
 import WishListLogo from "../assets/images/wishlist.png";
 import CartLogo from "../assets/images/cart.webp";
+import Review from "../components/Review";
 
 const btnStyles = { border: "none", background: "transparent" };
 function ProductDetails() {
@@ -195,47 +196,13 @@ function ProductDetails() {
       )}
 
       {reviews.length > 0 && (
-        <div>
-          <h4>Comments:</h4>
-          <p>
-            Global rating: {getAverageRating()}/5{" "}
-            {reviews ? <span>({reviews.length})</span> : ""}
-          </p>
-          {reviews.map((review) => (
-            <div key={review._id}>
-              <hr />
-              <p>
-                Comment by:{" "}
-                {review.user === null ? "Deleted User" : review.user.username}
-              </p>
-              <p>{review.comment}</p>
-              <p>
-                Rating:{" "}
-                {review.rating === 0
-                  ? "✰✰✰✰✰"
-                  : review.rating === 1
-                  ? "⭐✰✰✰✰"
-                  : review.rating === 2
-                  ? "⭐⭐✰✰✰"
-                  : review.rating === 3
-                  ? "⭐⭐⭐✰✰"
-                  : review.rating === 4
-                  ? "⭐⭐⭐⭐✰"
-                  : review.rating === 5
-                  ? "⭐⭐⭐⭐⭐"
-                  : ""}
-              </p>
-              {isLoggedIn &&
-                review.user !== null &&
-                (review.user._id === activeUser._id ||
-                  activeUser.role === "admin") && (
-                  <button onClick={() => deleteReview(review._id)}>
-                    Delete
-                  </button>
-                )}
-            </div>
-          ))}
-        </div>
+        <Review
+        reviews={reviews}
+        getAverageRating={getAverageRating}
+        isLoggedIn={isLoggedIn}
+        activeUser={activeUser}
+        deleteReview={deleteReview}
+        />
       )}
     </div>
   );
