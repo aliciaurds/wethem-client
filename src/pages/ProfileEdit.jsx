@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import service from '../services/config';
 import { useNavigate } from 'react-router-dom';
 import { RingLoader } from "react-spinners";
+import { Button, Form } from 'react-bootstrap';
 
 function ProfileEdit() {
   const navigate = useNavigate();
@@ -107,68 +108,82 @@ function ProfileEdit() {
     );
   }
   return (
-    <div>
+    <div className='details-container'>
       <h2>Edit Profile</h2>
-      <form onSubmit={handleFormSubmit}>
-        <label>First Name:</label>
+      <Form onSubmit={handleFormSubmit}>
+        <Form.Group className= "mb-3"  >
+        <Form.Label>First Name: </Form.Label>
         <input type="text" name="firstName" value={user.firstName} onChange={handleInputChange} /> <br/>
-        <label>Last Name:</label>
+        </Form.Group>
+        <Form.Group className= "mb-3"  >
+        <Form.Label>Last Name: </Form.Label>
         <input type="text" name="lastName" value={user.lastName} onChange={handleInputChange} /> <br/>
-
-        <label>Username:</label>
+        </Form.Group>
+        <Form.Group className= "mb-3"  >
+        <Form.Label>Username: </Form.Label>
         <input type="text" name="username" value={user.username} onChange={handleInputChange} /> <br/>
-
-        <label>Email:</label>
+        </Form.Group>
+        <Form.Group className= "mb-3"  >
+        <Form.Label>Email: </Form.Label>
         <input type="email" name="email" value={user.email} onChange={handleInputChange} /> <br/>
-
-        <label>Street:</label>
+        </Form.Group>
+        <Form.Group className= "mb-3"  >
+        <Form.Label>Street: </Form.Label>
         <input type="text" name="street" value={user.street} onChange={handleInputChange} /> <br/>
-
-        <label>City:</label>
+        </Form.Group>
+        <Form.Group className= "mb-3"  >
+        <Form.Label>City: </Form.Label>
         <input type="text" name="city" value={user.city} onChange={handleInputChange} /> <br/>
-
-        <label>Country:</label>
+        </Form.Group>
+        <Form.Group className= "mb-3"  >
+        <Form.Label>Country: </Form.Label>
         <input type="text" name="country" value={user.country} onChange={handleInputChange} /> <br/>
-
-        <label>Postal Code:</label>
+        </Form.Group>
+        <Form.Group className= "mb-3"  >
+        <Form.Label>Postal Code: </Form.Label>
         <input type="text" name="postalCode" value={user.postalCode} onChange={handleInputChange} /> <br/>
-
-        <label>Date of Birth: </label>
+        </Form.Group>
+        <Form.Group className= "mb-3"  >
+        <Form.Label>Date of Birth: </Form.Label>
         <input
         type="date"
         name="dateOfBirth"
         value=  {new Date(user.dateOfBirth).toISOString().split("T")[0]}
         onChange={handleInputChange}/> <br/>
-
-        <button type="submit">Save Changes</button>
-        </form>
-      <form onSubmit={handleFormSubmit}>
-        <label htmlFor="image">Profile Picture: </label>
+        </Form.Group>
+        <Button className='btn-form' variant="outline-danger" type="submit">Save Changes</Button>
+        </Form>
+      <Form onSubmit={handleFormSubmit}>
+      <Form.Group className= "mb-3"  >
+        <Form.Label htmlFor="image">Profile Picture: </Form.Label>
         <input
           type="file"
           name="image"
           onChange={handleFileUpload}
           disabled={isUploading}
-        />
+        /> <br />
+         </Form.Group>
         {isUploading ? <div className="small-spinner-container">
       <div className="spinner">
         <RingLoader color="red" size={20} />
       </div>
       </div> : null}
         {image ? (<div><img src={image} alt="img" width={200} /></div>) : null}
-        <button type="submit">Upload Picture</button>
-      </form>
-      <form onSubmit={handlePasswordFormSubmit}>
+        <Button className='btn-form' variant="outline-danger" type="submit">Upload Picture</Button>
+      </Form>
+      <Form onSubmit={handlePasswordFormSubmit}>
         <h3>Change Password</h3>
-        <label>New Password:</label>
+        <Form.Group className= "mb-3"  >
+        <Form.Label>New Password: </Form.Label>
         <input
           type="password"
           value={newPassword}
           onChange={handlePasswordInputChange}
         /><br />
+        </Form.Group>
 
-        <button type="submit">Change Password</button>
-      </form>
+        <Button className='btn-form' variant="outline-danger" type="submit">Change Password</Button>
+      </Form>
     </div>
     
   );

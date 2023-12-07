@@ -125,7 +125,7 @@ function AdminEdit() {
     "accessories",
   ];
   return (
-    <div>
+    <div className="details-container">
       <form onSubmit={handleSubmit}>
         <label htmlFor="Name">Name: </label>
         <input

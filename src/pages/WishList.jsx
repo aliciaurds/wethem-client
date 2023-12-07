@@ -2,6 +2,8 @@ import { useState } from "react";
 import { useEffect } from "react";
 import service from "../services/config"
 import { RingLoader } from "react-spinners";
+import ProductCard from "../components/ProductCard";
+import { Link } from "react-router-dom";
 
 function wishList() {
   //crear estado que se inicialice en array vacio para almacenar la lista
@@ -50,20 +52,19 @@ function wishList() {
   }
   return (
     //renderizar un map por cada elemento del array para ver el nombre y la imagen 
-    <div>
-    <h2>Wishlist</h2>
+    <div className="product-list">
       {wishList.map((eachProduct) => (
         <div key={eachProduct._id}>
-        <p>{eachProduct.name}</p>
-        <img src={eachProduct.image} alt="img" width={200} /><br />
+        <Link  to={`/products/${eachProduct._id}/details`} className="product-link">
+        <ProductCard product={eachProduct} />
+      </Link>
         <button onClick={() => removeFromWishlist(eachProduct._id)}>
           Remove
         </button>
         </div>
         
       ))}
-  
-  </div>
+      </div>
   )
 }
 //TODO añadir boton para eliminar de la lista

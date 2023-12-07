@@ -3,11 +3,15 @@ import { Link, useNavigate, useParams } from "react-router-dom";
 import service from "../services/config";
 import { RingLoader } from "react-spinners";
 import { AuthContext } from "../context/auth.context";
-import WishListLogo from "../assets/images/wishlist.png";
-import CartLogo from "../assets/images/cart.webp";
+import HeartFilled from "../assets/images/filledHeart.png";
+import CartFilled from "../assets/images/filledCart.png";
+import LineHeart from "../assets/images/lineHeart.png";
+import LineCart from "../assets/images/lineCart.png";
 import Review from "../components/Review";
+import { Button } from "react-bootstrap";
+import FloatingLabel from 'react-bootstrap/FloatingLabel';
+import Form from 'react-bootstrap/Form';
 
-const btnStyles = { border: "none", background: "transparent" };
 function ProductDetails() {
   const navigate = useNavigate();
   const params = useParams();
@@ -20,6 +24,10 @@ function ProductDetails() {
   const [rating, setRating] = useState("0");
   const [reviews, setReviews] = useState([]);
   const { isLoggedIn, activeUser } = useContext(AuthContext);
+
+  // Estados para controlar qué imagenes mostrar
+  const [wishlistImgVisible, setWishlistImgVisible] = useState(true); 
+  const [cartImgVisible, setCartImgVisible] = useState(true); 
 
   useEffect(() => {
     productData(), reviewsByProduct();
@@ -86,28 +94,39 @@ function ProductDetails() {
     return averageRating.toFixed(1);
   };
   const addToWishlist = async () => {
+    //cambio de img
+    setWishlistImgVisible(!wishlistImgVisible);
     try {
       if (!isLoggedIn) {
         navigate("/login");
         return;
       }
       await service.patch(`profile//wishlist/${params.productId}/add`);
-      navigate("/wishlist");
+      
     } catch (error) {
       console.error(error);
     }
+     //volver a la imagen original dsp de 1 s
+     setTimeout(() => {
+      setWishlistImgVisible(true);
+    }, 1000)
   };
   const addToShoppingCart = async () => {
+    setCartImgVisible(!cartImgVisible);
     try {
       if (!isLoggedIn) {
         navigate("/login");
         return;
       }
       await service.patch(`profile/shoppingCart/${params.productId}/add`);
-      navigate("/shoppingCart");
+
     } catch (error) {
       console.error(error);
     }
+    setTimeout(() => {
+      setCartImgVisible(true);
+    }, 1000);
+   
   };
 
   //variable to check if user is logged in, active and it's role its admin
@@ -129,7 +148,7 @@ function ProductDetails() {
   }
 
   return (
-    <div>
+    <div className="details-container">
       <Link to={"/all"}>
         <p>Back</p>
       </Link>
@@ -137,17 +156,26 @@ function ProductDetails() {
       {isUser && (
         <div>
           <p>
-            <button style={btnStyles} onClick={addToWishlist}>
-              <img src={WishListLogo} alt="wishlistlogo" width={20} />
+            <button className="add-btn-style" onClick={addToWishlist}>
+            {wishlistImgVisible ? (
+                <img src={LineHeart} alt="wishlistlogo" width={20} />
+              ) : (
+                <img src={HeartFilled} alt="wishlistlogo" width={20} />
+              )}
             </button>
-            <button style={btnStyles} onClick={addToShoppingCart}>
-              <img src={CartLogo} alt="cartlogo" width={20} />
+            <button className="add-btn-style" onClick={addToShoppingCart}>
+            {cartImgVisible ? (
+                <img src={LineCart} alt="cartlogo" width={20} />
+              ) : (
+                <img src={CartFilled} alt="cartlogo" width={20} />
+              )}
             </button>
           </p>
         </div>
       )}
-
-      <img src={details.image} alt="clothesPicture" />
+        <div>
+      <img className="img-details" src={details.image} alt="clothesPicture" />
+      </div>
       <br />
       <p>Description: {details.description}</p>
       <p>{details.price} €</p>
@@ -162,7 +190,7 @@ function ProductDetails() {
         <div>
           <p>
             Please{" "}
-            <Link style={{ color: "red" }} to={"/login"}>
+            <Link to={"/login"}>
               log in
             </Link>{" "}
             to add a comment
@@ -177,20 +205,27 @@ function ProductDetails() {
               addReview(comment, rating);
             }}
           >
-            <textarea
-              placeholder="Give us your opinion"
-              value={comment}
-              onChange={(e) => setComment(e.target.value)}
-            ></textarea>
-            <select value={rating} onChange={(e) => setRating(e.target.value)}>
+                
+      <FloatingLabel controlId="floatingTextarea2" label="Comments">
+        <Form.Control
+          as="textarea"
+          placeholder="Give us your opinion"
+          style={{ height: '100px' }}
+          value={comment}
+          onChange={(e) => setComment(e.target.value)}
+        />
+        
+            </FloatingLabel><br />
+            <h5>Rate this product</h5>
+            <Form.Select value={rating} onChange={(e) => setRating(e.target.value)}>
               <option value="0">0</option>
               <option value="1">1</option>
               <option value="2">2</option>
               <option value="3">3</option>
               <option value="4">4</option>
               <option value="5">5</option>
-            </select>
-            <button type="submit">Send Review</button>
+            </Form.Select><br />
+            <Button className="btn-form" variant="outline-danger" type="submit">Send Review</Button>
           </form>
         </div>
       )}

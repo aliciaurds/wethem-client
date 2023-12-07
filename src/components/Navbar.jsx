@@ -8,29 +8,7 @@ import WishListLogo from "../assets/images/wishlist.png"
 import ShoppingCartLogo from "../assets/images/cart.webp"
 
 
-
-
-
-function Navbar() {
-  const navStyles = {
-    display: "flex",
-    flexDirection: "row",
-    justifyContent: "space-around",
-    alignItems: "center",    
-   
-  }
-  const linkStyles = {
-    color:"red",
-    textDecoration: "none"
-
-  }
-  const btnStyles = {
-  color: "red", 
-  borderRadius: "25px",
-  borderColor: "red", 
-  background: "transparent",
-  cursor: "pointer",
-  }
+function Navbar() {    
   const navigate = useNavigate()
   const {isLoggedIn, authenticateUser, activeUser} = useContext(AuthContext)
   const [menuOpen, setMenuOpen] = useState(false);
@@ -66,13 +44,14 @@ function Navbar() {
 
   if(isLoggedIn && activeUser && activeUser.role !== 'admin'){ 
     return (
-      <nav style={navStyles}>
+      <div className="nav-container">
+      <nav className="nav-style">
         
-        <NavLink style={linkStyles} to="/"><img src={Logo} alt="logo" width={150} /></NavLink> 
+        <NavLink to="/"><img src={Logo} alt="logo" width={150} /></NavLink> 
         {/* child elements are positioned relative to this container */}
       <div style={{ position: 'relative' }}>
       {/* label dropdown menu, when clicked toggleMenu function get invoke to see the menu*/}
-        <p onClick={toggleMenu} className="category-label" style={linkStyles}>
+        <p onClick={toggleMenu} className="category-label" >
           Categories
         </p>
         {/* visibility is controlled by the isActive class. When menuOpen state is true, it adds the isActive class, when is false it's removed */}
@@ -92,20 +71,22 @@ function Navbar() {
           ))}
         </ul>
       </div>
-        <NavLink  style={linkStyles} to="/account"><img src={UserLogo} alt="userlogo" width={25} /></NavLink>
-        <NavLink  style={linkStyles} to="/wishlist"><img src={WishListLogo} alt="wishlistlogo" width={20} /></NavLink>
-        <NavLink  style={linkStyles} to="/shoppingCart"><img src={ShoppingCartLogo} alt="cartlogo" width={18} /></NavLink>
-        <button onClick={handleLogOut} style={btnStyles}>Log Out</button>
+        <NavLink to="/profile"><img src={UserLogo} alt="userlogo" width={25} /></NavLink>
+        <NavLink to="/wishlist"><img src={WishListLogo} alt="wishlistlogo" width={20} /></NavLink>
+        <NavLink   to="/shoppingCart"><img src={ShoppingCartLogo} alt="cartlogo" width={18} /></NavLink><br />
+        <button onClick={handleLogOut} className="btn-style">Log Out</button>
       </nav>
+      </div>
     );
   } else if (isLoggedIn && activeUser && activeUser.role === 'admin'){
     return (
-      <nav style={navStyles}>
-      <NavLink style={linkStyles} to="/">
+      <div className="nav-container">
+      <nav className="nav-style">
+      <NavLink  to="/">
         <img src={Logo} alt="logo" width={150} />
       </NavLink>
       <div style={{ position: 'relative' }}>
-        <p onClick={toggleMenu} className="category-label" style={linkStyles}>
+        <p onClick={toggleMenu} className="category-label" >
           Categories
         </p>
         <ul className={`category-menu ${menuOpen ? "isActive" : ""}`}>
@@ -122,18 +103,20 @@ function Navbar() {
           ))}
         </ul>
       </div>
-      <NavLink  style={linkStyles} to="/account"><img src={UserLogo} alt="userlogo" width={25} /></NavLink>
-        <NavLink  style={linkStyles} to="/products/create">Add Product</NavLink>
-        <button onClick={handleLogOut} style={btnStyles}>Log Out</button>
+      <NavLink  to="/profile"><img src={UserLogo} alt="userlogo" width={25} /></NavLink>
+        <NavLink  to="/products/create">Add Product</NavLink>
+        <button onClick={handleLogOut} className="btn-style">Log Out</button>
     </nav>
+    </div>
     )
   }
   else{
     return (
-      <nav style={navStyles}>
-        <NavLink  style={linkStyles} to="/"><img src={Logo} alt="logo" width={150} /></NavLink> 
+      <div className="nav-container">
+      <nav className="nav-style">
+        <NavLink to="/"><img src={Logo} alt="logo" width={150} /></NavLink> 
       <div style={{ position: 'relative' }}>
-        <p onClick={toggleMenu} className="category-label" style={linkStyles}>
+        <p onClick={toggleMenu} className="category-label" >
           Categories
         </p>
         <ul className={`category-menu ${menuOpen ? "isActive" : ""}`}>
@@ -150,10 +133,11 @@ function Navbar() {
           ))}
         </ul>
       </div>
-        <NavLink  style={linkStyles} to="/login"><img src={UserLogo} alt="userlogo" width={25} /></NavLink>
-        <NavLink  style={linkStyles} to="/wishlist"><img src={WishListLogo} alt="wishlistlogo" width={20} /></NavLink>
-        <NavLink  style={linkStyles} to="/shoppingCart"><img src={ShoppingCartLogo} alt="cartlogo" width={18} /></NavLink>
+        <NavLink  to="/login"><img src={UserLogo} alt="userlogo" width={25} /></NavLink>
+        <NavLink to="/wishlist"><img src={WishListLogo} alt="wishlistlogo" width={20} /></NavLink>
+        <NavLink  to="/shoppingCart"><img src={ShoppingCartLogo} alt="cartlogo" width={18} /></NavLink>
       </nav>
+      </div>
     );
   }
  

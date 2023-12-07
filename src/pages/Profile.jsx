@@ -4,6 +4,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { format } from "date-fns";
 import { RingLoader } from "react-spinners";
 import { AuthContext } from "../context/auth.context";
+import { Button } from "react-bootstrap";
 
 function Profile() {
   const [user, setUser] = useState(null);
@@ -53,7 +54,7 @@ function Profile() {
   
 
   return (
-    <div>
+    <div className="details-container">
       <h2>Profile</h2>
       <div>
         <p>First Name: {user.firstName}</p>
@@ -68,8 +69,8 @@ function Profile() {
         <p>Date of Birth: {format(new Date(user.dateOfBirth), "dd/MM/yyyy")}</p>
         <img src={user.profilePic} alt="profilePic" width={300} /><br />
         <Link to={"/profile/edit"}>
-         <button>Edit Profile</button> </Link> <br />
-         <button onClick={deleteAccount}>Delete Account</button>
+         <Button className = "btn-form" variant="outline-danger">Edit Profile</Button> </Link> <br />
+         <Button variant="outline-danger" onClick={deleteAccount}>Delete Account</Button>
       </div>
     </div>
   );

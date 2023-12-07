@@ -3,8 +3,8 @@ function Review(props) {
   
     function renderRating() {
       return reviews.map((review) => (
-        <div key={review._id}>
-          <hr />
+        <div className = "text-box" key={review._id}>
+
           <p>
             Comment by:{" "}
             {review.user === null ? "Deleted User" : review.user.username}
@@ -39,11 +39,12 @@ function Review(props) {
     }
   
     return (
-      <div>
-        <h4>Comments:</h4>
-        <p>
+      <div >
+        <h5 style={{marginBottom : "20px"}}>
           Global rating: {getAverageRating()}/5 {reviews ? <span>({reviews.length})</span> : ""}
-        </p>
+        </h5>
+
+
         {renderRating()}
       </div>
     );

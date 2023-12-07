@@ -32,9 +32,9 @@ function CategoriesDetails() {
   return (
     <div>
       <h2>{capCategory}</h2>
-      <div>
+      <div className="product-list">
         {categoryProducts.map((eachProduct) => (
-          <Link key={eachProduct._id} to={`/products/${eachProduct._id}/details`}>
+          <Link key={eachProduct._id} to={`/products/${eachProduct._id}/details`} className="product-link">
           <ProductCard product={eachProduct} />
           </Link>
         ))}

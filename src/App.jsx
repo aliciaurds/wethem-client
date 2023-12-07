@@ -1,5 +1,6 @@
 import { Route, Routes } from 'react-router-dom'
 //styles
+import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css'
 import Navbar from './components/Navbar'
 //pages
@@ -10,8 +11,6 @@ import AllProducts from './pages/AllProducts'
 import About from './pages/About'
 import CategoriesDetails from './pages/CategoriesDetails'
 import ProductDetails from './pages/ProductDetails'
-import Account from './pages/Account'
-import Orders from './pages/Orders'
 import Profile from './pages/Profile'
 import ProfileEdit from './pages/ProfileEdit'
 import WishList from './pages/WishList'
@@ -45,8 +44,6 @@ function App() {
     <Route path='/products/:productId/details' element = {<ProductDetails/>}/>
 
     {/* private routes */}
-    <Route path='/account' element = {<IsPrivate><Account/></IsPrivate>}/>
-    <Route path='/orders' element={<IsPrivate><Orders/></IsPrivate>}/>
     <Route path='/profile' element = {<IsPrivate><Profile/></IsPrivate>}/>
     <Route path='/profile/edit' element = {<IsPrivate><ProfileEdit/></IsPrivate>}/>
     <Route path='/wishlist' element = {<IsPrivate><WishList/></IsPrivate>}/>

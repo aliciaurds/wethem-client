@@ -10,7 +10,7 @@ function isNotLogged(props) {
       return props.children
   
     }else{
-      return <Navigate to={"/account"} />
+      return <Navigate to={"/profile"} />
     }
 }
 

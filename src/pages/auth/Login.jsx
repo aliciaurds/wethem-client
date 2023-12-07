@@ -2,6 +2,7 @@ import {useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import service from "../../services/config";
 import { AuthContext } from "../../context/auth.context";
+import { Button, Form } from "react-bootstrap";
 function Login() {
   const {authenticateUser} = useContext(AuthContext)
   const navigate = useNavigate();
@@ -40,36 +41,39 @@ function Login() {
     navigate("/signup"); 
   };
   return (
-    <div>
-      <hr />
+    <div className="details-container">
+
       <h1>Login</h1>
 
-      <form onSubmit={handleLogin}>
-        <label>Email:</label>
-        <input
+      <Form onSubmit={handleLogin}>
+      <Form.Group className="mb-3" controlId="formBasicEmail">
+      <Form.Label>Email address:</Form.Label>
+        <Form.Control
           type="email"
           name="email"
           value={email}
           onChange={handleEmailChange}
         />
+        </Form.Group>
 
         <br />
-
-        <label>Password:</label>
-        <input
+        <Form.Group className="mb-3" controlId="formBasicPassword">
+        <Form.Label>Password:</Form.Label>
+        <Form.Control
           type="password"
           name="password"
           value={password}
           onChange={handlePasswordChange}
         />
+        </Form.Group>
 
         <br />
 
-        <button type="submit">Log In</button>
+        <Button style={{marginTop : "10px"}} variant="outline-danger" type="submit">Log In</Button>
         <p style={{ color: "red" }}>{errMessage}</p>
-      </form>
+      </Form>
       <p>Not registered yet?</p>
-      <button onClick={toSignUp}>Sign Up</button>
+      <Button variant="outline-danger" onClick={toSignUp}>Sign Up</Button>
     </div>
   );
 }

@@ -31,16 +31,13 @@ function AllProducts() {
     );
   }
   return (
-    <div>
-      <h3>All Products</h3>
       <div className="product-list">
         {allProducts.map((eachProduct) => (
-          <Link key={eachProduct._id} to={`/products/${eachProduct._id}/details`}>
+          <Link key={eachProduct._id} to={`/products/${eachProduct._id}/details`} className="product-link">
             <ProductCard product={eachProduct} />
           </Link>
         ))}
       </div>
-    </div>
   )
 }
 

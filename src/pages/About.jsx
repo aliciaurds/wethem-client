@@ -2,9 +2,9 @@ import Logo from "../assets/images/wethem.png"
 
 function About() {
   return (
-    <div style={{ maxWidth: "1000px", margin: "0 auto" }}>
-      <hr />
-      <br />
+    <div className = "aboutus-container" >
+      
+      
       <img src={Logo} alt="logo" width={300} />
       <div style={{textAlign: "justify", margin: "0 20px"}}>
         <p>The Fibonacci spiral is a sequence of numbers where each number is the

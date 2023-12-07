@@ -3,6 +3,8 @@ import { useEffect } from "react";
 import service from "../services/config"
 import { RingLoader } from "react-spinners";
 import PaymentIntent from "../components/PaymentIntent";
+import { Link } from "react-router-dom";
+import ProductCard from "../components/ProductCard";
 
 function ShoppingCart() {
   const [shoppingCart, setShoppingCart] = useState([]);
@@ -46,13 +48,13 @@ function ShoppingCart() {
   }
   return (
     //renderizar un map por cada elemento del array para ver el nombre y la imagen 
-    <div>
-    <h2>Shopping Cart</h2>
-    <div>
+    <div className="details-container">
+    <div className="product-list">
       {shoppingCart.map((eachProduct) => (
         <div key={eachProduct._id}>
-        <p >{eachProduct.name}</p>
-        <img src={eachProduct.image} alt="img" width={200} />
+        <Link  to={`/products/${eachProduct._id}/details`} className="product-link">
+        <ProductCard product={eachProduct} />
+      </Link>
         <p>{eachProduct.price}€</p>
         <button onClick={() => removeFromShoppingCart(eachProduct._id)}>
           Remove
@@ -61,8 +63,8 @@ function ShoppingCart() {
         
       ))}
       {/* acumulador: total, eachProduct es cada producto del array y la suma es el acumulador mas el precio de cada producto */}
-       <p>Total: {shoppingCart.reduce((total, eachProduct) => total + eachProduct.price, 0)}€</p>
     </div>
+       <p>Total: {shoppingCart.reduce((total, eachProduct) => total + eachProduct.price, 0)}€</p>
     <div>
   { 
     showPaymentIntent === false

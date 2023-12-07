@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import service from "../../services/config";
 import { RingLoader } from "react-spinners";
+import { Button, Form } from "react-bootstrap";
 function Signup() {
   const navigate = useNavigate();
 
@@ -82,113 +83,132 @@ function Signup() {
   };
 
   return (
-    <div>
-      <hr />
-      <h1>Sign Up </h1>
+    <div className="details-container">
 
-      <form onSubmit={handleSignup}>
-        <label>First Name:</label>
-        <input
+      <h1>Sign Up </h1>
+      <Form onSubmit={handleSignup}>
+      <Form.Group className="mb-3">
+        <Form.Label>First Name:</Form.Label>
+        <Form.Control
           type="text"
           name="firstName"
           value={firstName}
           onChange={handleFirstNameChange}
         />
+        </Form.Group>
 
         <br />
+        <Form.Group className="mb-3">
 
-        <label>Last Name:</label>
-        <input
+        <Form.Label>Last Name:</Form.Label>
+        <Form.Control
           type="text"
           name="lastName"
           value={lastName}
           onChange={handleLastNameChange}
-        />
+          />
+          </Form.Group>
 
         <br />
-
-        <label>Username:</label>
-        <input
+        <Form.Group className="mb-3">
+          
+        <Form.Label>Username:</Form.Label>
+        <Form.Control
           type="text"
           name="username"
           value={username}
           onChange={handleUsernameChange}
-        />
+          />
+          </Form.Group>
 
         <br />
+        <Form.Group className="mb-3">
 
-        <label>Email:</label>
-        <input
+        <Form.Label>Email:</Form.Label>
+        <Form.Control
           type="email"
           name="email"
           value={email}
           onChange={handleEmailChange}
-        />
+          />
+          </Form.Group>
 
         <br />
-
-        <label>Password:</label>
-        <input
+        <Form.Group className="mb-3">
+          
+        <Form.Label>Password:</Form.Label>
+        <Form.Control
           type="password"
           name="password"
           value={password}
           onChange={handlePasswordChange}
-        />
+          />
+          </Form.Group>
 
         <br />
+        <Form.Group className="mb-3">
 
-        <label>Street:</label>
-        <input
+        <Form.Label>Street:</Form.Label>
+        <Form.Control
           type="text"
           name="street"
           value={street}
           onChange={handleStreetChange}
-        />
+          />
+          </Form.Group>
 
         <br />
+        <Form.Group className="mb-3">
 
-        <label>City:</label>
-        <input
+        <Form.Label>City:</Form.Label>
+        <Form.Control
           type="text"
           name="city"
           value={city}
           onChange={handleCityChange}
-        />
+          />
+          </Form.Group>
 
         <br />
+        <Form.Group className="mb-3">
 
-        <label>Country:</label>
-        <input
+        <Form.Label>Country:</Form.Label>
+        <Form.Control
           type="text"
           name="country"
           value={country}
           onChange={handleCountryChange}
-        />
+          />
+          </Form.Group>
 
         <br />
+        <Form.Group className="mb-3">
 
-        <label>Postal Code:</label>
-        <input
+        <Form.Label>Postal Code:</Form.Label>
+        <Form.Control
           type="number"
           name="postalCode"
           value={postalCode}
           onChange={handlePostalCodeChange}
-        />
+          />
+          </Form.Group>
 
         <br />
+        <Form.Group className="mb-3">
 
-        <label>Date of Birth:</label>
-        <input
+        <Form.Label>Date of Birth:</Form.Label>
+        <Form.Control
           type="date"
           name="dateOfBirth"
           value={dateOfBirth}
           onChange={handleDateOfBirthChange}
-        />
+          />
+          </Form.Group>
 
         <br />
-
-        <label htmlFor="profilePic">Profile Pic: </label>
-        <input
+        <Form.Group className="mb-3"></Form.Group>
+        <Form.Label htmlFor="profilePic">Profile Pic: </Form.Label>
+        <Form.Control
           type="file"
           name="profilePic"
           onChange={handleFileUpload}
@@ -202,10 +222,10 @@ function Signup() {
         {profilePic ? (<div><img src={profilePic} alt="img" width={200} /></div>) : null}
         <br />
 
-        <button type="submit">Sign Up</button>
+        <Button variant="outline-danger" type="submit">Sign Up</Button>
         
         <p style={{ color: "red" }}>{errMessage}</p>
-      </form>
+      </Form>
     </div>
   );
 }
