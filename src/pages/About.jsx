@@ -5,8 +5,9 @@ function About() {
     <div className = "aboutus-container" >
       
       
-      <img src={Logo} alt="logo" width={300} />
-      <div style={{textAlign: "justify", margin: "0 20px"}}>
+      <img src={Logo} alt="logo" width={300} /> 
+
+      <div style={{textAlign: "justify", margin: "50px 20px"}}>
         <p>The Fibonacci spiral is a sequence of numbers where each number is the
         sum of the two preceding numbers: 0, 1, 1, 2, 3, 5, 8, 13, 21, and so
         on. If you take squares with side lengths corresponding to consecutive
