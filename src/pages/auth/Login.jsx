@@ -47,33 +47,35 @@ function Login() {
 
       <Form onSubmit={handleLogin}>
       <Form.Group className="mb-3" controlId="formBasicEmail">
-      <Form.Label>Email address:</Form.Label>
-        <Form.Control
-          type="email"
-          name="email"
-          value={email}
-          onChange={handleEmailChange}
-        />
-        </Form.Group>
 
-        <br />
-        <Form.Group className="mb-3" controlId="formBasicPassword">
-        <Form.Label>Password:</Form.Label>
-        <Form.Control
-          type="password"
-          name="password"
-          value={password}
-          onChange={handlePasswordChange}
-        />
-        </Form.Group>
+  <Form.Control
+    type="email"
+    name="email"
+    value={email}
+    onChange={handleEmailChange}
+    placeholder="Enter your email"
+  />
+</Form.Group>
 
+<br />
+
+<Form.Group className="mb-3" controlId="formBasicPassword">
+
+  <Form.Control
+    type="password"
+    name="password"
+    value={password}
+    onChange={handlePasswordChange}
+    placeholder="Enter your password"
+  />
+</Form.Group>
         <br />
 
         <Button style={{marginTop : "10px"}} variant="outline-danger" type="submit">Log In</Button>
         <p style={{ color: "red" }}>{errMessage}</p>
-      </Form>
-      <p>Not registered yet?</p>
-      <Button variant="outline-danger" onClick={toSignUp}>Sign Up</Button>
+      </Form><br />
+      <p>Not registered yet?
+      <button className="btn-style" onClick={toSignUp}>Sign Up</button></p>
     </div>
   );
 }

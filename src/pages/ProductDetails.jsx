@@ -183,7 +183,7 @@ function ProductDetails() {
       <p>Color: {capitalize(details.color)}</p>
       {isAdmin && (
         <Link to={`/products/${details._id}/update`}>
-          <button>Update Product</button>
+          <Button variant = "outline-danger">Update Product</Button>
         </Link>
       )}
       {!isLoggedIn && (

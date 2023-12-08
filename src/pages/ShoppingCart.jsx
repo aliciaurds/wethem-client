@@ -5,6 +5,7 @@ import { RingLoader } from "react-spinners";
 import PaymentIntent from "../components/PaymentIntent";
 import { Link } from "react-router-dom";
 import ProductCard from "../components/ProductCard";
+import { Button } from "react-bootstrap";
 
 function ShoppingCart() {
   const [shoppingCart, setShoppingCart] = useState([]);
@@ -56,9 +57,9 @@ function ShoppingCart() {
         <ProductCard product={eachProduct} />
       </Link>
         <p>{eachProduct.price}€</p>
-        <button onClick={() => removeFromShoppingCart(eachProduct._id)}>
+        <Button variant = "outline-danger" onClick={() => removeFromShoppingCart(eachProduct._id)}>
           Remove
-        </button>
+        </Button>
         </div>
         
       ))}
@@ -68,7 +69,7 @@ function ShoppingCart() {
     <div>
   { 
     showPaymentIntent === false
-    ? <button onClick={() => setShowPaymentIntent(true)}>Purchase</button> 
+    ? <Button variant = "outline-danger" onClick={() => setShowPaymentIntent(true)}>Purchase</Button> 
     : <PaymentIntent productsToBuy={shoppingCart}/> 
   }
 </div>

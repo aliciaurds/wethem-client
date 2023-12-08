@@ -1,6 +1,6 @@
 function Unauthorized() {
   return (
-    <div style={{fontSize: "50px"}}>🚷Access Denied🚷!</div>
+    <div className="details-container" style={{fontSize: "50px"}}>🚷Access Denied🚷!</div>
   )
 }
 

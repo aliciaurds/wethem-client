@@ -113,39 +113,39 @@ function ProfileEdit() {
       <Form onSubmit={handleFormSubmit}>
         <Form.Group className= "mb-3"  >
         <Form.Label>First Name: </Form.Label>
-        <input type="text" name="firstName" value={user.firstName} onChange={handleInputChange} /> <br/>
+        <Form.Control type="text" name="firstName" value={user.firstName} onChange={handleInputChange} /> <br/>
         </Form.Group>
         <Form.Group className= "mb-3"  >
         <Form.Label>Last Name: </Form.Label>
-        <input type="text" name="lastName" value={user.lastName} onChange={handleInputChange} /> <br/>
+        <Form.Control type="text" name="lastName" value={user.lastName} onChange={handleInputChange} /> <br/>
         </Form.Group>
         <Form.Group className= "mb-3"  >
         <Form.Label>Username: </Form.Label>
-        <input type="text" name="username" value={user.username} onChange={handleInputChange} /> <br/>
+        <Form.Control type="text" name="username" value={user.username} onChange={handleInputChange} /> <br/>
         </Form.Group>
         <Form.Group className= "mb-3"  >
         <Form.Label>Email: </Form.Label>
-        <input type="email" name="email" value={user.email} onChange={handleInputChange} /> <br/>
+        <Form.Control type="email" name="email" value={user.email} onChange={handleInputChange} /> <br/>
         </Form.Group>
         <Form.Group className= "mb-3"  >
         <Form.Label>Street: </Form.Label>
-        <input type="text" name="street" value={user.street} onChange={handleInputChange} /> <br/>
+        <Form.Control type="text" name="street" value={user.street} onChange={handleInputChange} /> <br/>
         </Form.Group>
         <Form.Group className= "mb-3"  >
         <Form.Label>City: </Form.Label>
-        <input type="text" name="city" value={user.city} onChange={handleInputChange} /> <br/>
+        <Form.Control type="text" name="city" value={user.city} onChange={handleInputChange} /> <br/>
         </Form.Group>
         <Form.Group className= "mb-3"  >
         <Form.Label>Country: </Form.Label>
-        <input type="text" name="country" value={user.country} onChange={handleInputChange} /> <br/>
+        <Form.Control type="text" name="country" value={user.country} onChange={handleInputChange} /> <br/>
         </Form.Group>
         <Form.Group className= "mb-3"  >
         <Form.Label>Postal Code: </Form.Label>
-        <input type="text" name="postalCode" value={user.postalCode} onChange={handleInputChange} /> <br/>
+        <Form.Control type="text" name="postalCode" value={user.postalCode} onChange={handleInputChange} /> <br/>
         </Form.Group>
         <Form.Group className= "mb-3"  >
         <Form.Label>Date of Birth: </Form.Label>
-        <input
+        <Form.Control
         type="date"
         name="dateOfBirth"
         value=  {new Date(user.dateOfBirth).toISOString().split("T")[0]}
@@ -156,7 +156,7 @@ function ProfileEdit() {
       <Form onSubmit={handleFormSubmit}>
       <Form.Group className= "mb-3"  >
         <Form.Label htmlFor="image">Profile Picture: </Form.Label>
-        <input
+        <Form.Control
           type="file"
           name="image"
           onChange={handleFileUpload}
@@ -175,7 +175,7 @@ function ProfileEdit() {
         <h3>Change Password</h3>
         <Form.Group className= "mb-3"  >
         <Form.Label>New Password: </Form.Label>
-        <input
+        <Form.Control
           type="password"
           value={newPassword}
           onChange={handlePasswordInputChange}

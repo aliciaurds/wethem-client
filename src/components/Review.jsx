@@ -1,3 +1,5 @@
+import { Button } from "react-bootstrap";
+
 function Review(props) {
     const { reviews, getAverageRating, isLoggedIn, activeUser, deleteReview } = props;
   
@@ -30,9 +32,9 @@ function Review(props) {
             review.user !== null &&
             (review.user._id === activeUser._id ||
               activeUser.role === "admin") && (
-              <button onClick={() => deleteReview(review._id)}>
+              <Button variant = "outline-danger" onClick={() => deleteReview(review._id)}>
                 Delete
-              </button>
+              </Button>
             )}
         </div>
       ));

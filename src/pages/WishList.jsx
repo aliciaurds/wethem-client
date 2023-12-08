@@ -4,6 +4,7 @@ import service from "../services/config"
 import { RingLoader } from "react-spinners";
 import ProductCard from "../components/ProductCard";
 import { Link } from "react-router-dom";
+import { Button } from "react-bootstrap";
 
 function wishList() {
   //crear estado que se inicialice en array vacio para almacenar la lista
@@ -58,9 +59,9 @@ function wishList() {
         <Link  to={`/products/${eachProduct._id}/details`} className="product-link">
         <ProductCard product={eachProduct} />
       </Link>
-        <button onClick={() => removeFromWishlist(eachProduct._id)}>
+        <Button variant = "outline-danger" onClick={() => removeFromWishlist(eachProduct._id)}>
           Remove
-        </button>
+        </Button>
         </div>
         
       ))}

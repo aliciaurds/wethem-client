@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import service from "../services/config";
 import { RingLoader } from "react-spinners";
+import { Button, Form } from "react-bootstrap";
 function AdminEdit() {
   const params = useParams();
   console.log(params.productId);
@@ -126,59 +127,67 @@ function AdminEdit() {
   ];
   return (
     <div className="details-container">
-      <form onSubmit={handleSubmit}>
-        <label htmlFor="Name">Name: </label>
-        <input
+      <Form onSubmit={handleSubmit}>
+        <Form.Group className="mb-3">
+        <Form.Label htmlFor="Name">Name: </Form.Label>
+        <Form.Control
           type="text"
           name="name"
           onChange={handleNameChange}
           value={name}
         />
+        </Form.Group>
 
         <br />
-
-        <label htmlFor="description">Description: </label>
-        <input
+        <Form.Group className="mb-3">
+        <Form.Label htmlFor="description">Description: </Form.Label>
+        <Form.Control
           type="text"
           name="description"
           onChange={handleDescriptionChange}
           value={description}
         />
-
+        </Form.Group>
         <br />
-        <label htmlFor="price">Price: </label>
-        <input
+        <Form.Group className="mb-3">
+        <Form.Label htmlFor="price">Price: </Form.Label>
+        <Form.Control
           type="number"
           name="price"
           onChange={handlePriceChange}
           value={price}
         />
+        </Form.Group>
 
         <br />
-        <label htmlFor="size">Size: </label>
-        <select name="size" onChange={handleSizeChange} value={size}>
+        <Form.Group className="mb-3">
+        <Form.Label htmlFor="size">Size: </Form.Label>
+        <Form.Select name="size" onChange={handleSizeChange} value={size}>
           <option value="">Select Size</option>
           {sizeOptions.map((eachSize, index) => (
             <option key={index} value={eachSize.toLowerCase()}>
               {eachSize}
             </option>
           ))}
-        </select>
+        </Form.Select>
+        </Form.Group>
 
         <br />
-        <label htmlFor="color">Color: </label>
-        <select name="color" onChange={handleColorChange} value={color}>
+        <Form.Group className="mb-3">
+        <Form.Label htmlFor="color">Color: </Form.Label>
+        <Form.Select name="color" onChange={handleColorChange} value={color}>
           <option value="">Select Color</option>
           {colorOptions.map((eachColor, index) => (
             <option key={index} value={eachColor.toLowerCase()}>
               {eachColor}
             </option>
           ))}
-        </select>
-
+        </Form.Select>
+        </Form.Group>
         <br />
-        <label htmlFor="category">Category: </label>
-        <select
+        <Form.Group className="mb-3">
+        <Form.Label htmlFor="category">Category: </Form.Label>
+        <Form.Select
           name="category"
           onChange={handleCategoryChange}
           value={category}
@@ -189,33 +198,35 @@ function AdminEdit() {
               {eachCategory}
             </option>
           ))}
-        </select>
+        </Form.Select>
+        </Form.Group>
         <br />
-        <button type="submit">Update</button>
-      </form>
-      <form onSubmit={handleSubmit}>
-        <label htmlFor="image">Photo: </label>
-        <input
+        <Button className="btn-form" variant="outline-danger" type="submit">Update</Button>
+      </Form>
+      <Form onSubmit={handleSubmit}>
+      <Form.Group className="mb-3">
+        <Form.Label htmlFor="image">Photo: </Form.Label>
+        <Form.Control
           type="file"
           name="image"
           onChange={handleFileUpload}
           disabled={isUploading}
-        />
+        /> <br />
         {isUploading ? <div className="small-spinner-container">
       <div className="spinner">
         <RingLoader color="red" size={20} />
       </div>
       </div>: null}
         {image ? (<div><img src={image} alt="img" width={200} /></div>) : null}
-        <button type="submit">Upload Picture</button>
-      </form>
-      <button
+        <Button  className="btn-form" variant="outline-danger"  type="submit">Upload Picture</Button>
+        </Form.Group>
+      </Form>
+      <Button  variant="outline-danger" 
         onClick={handleDelete}
-        style={{ backgroundColor: "darkred", color: "white", border: "none" }}
         type="submit"
       >
         Delete
-      </button>
+      </Button>
     </div>
   );
 }

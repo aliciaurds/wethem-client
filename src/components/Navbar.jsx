@@ -6,6 +6,7 @@ import UserLogo from "../assets/images/User-Profile-PNG-Free-Download.png"
 import Logo from "../assets/images/wethem.png"
 import WishListLogo from "../assets/images/wishlist.png"
 import ShoppingCartLogo from "../assets/images/cart.webp"
+import { Button } from "react-bootstrap";
 
 
 function Navbar() {    
@@ -74,7 +75,7 @@ function Navbar() {
         <NavLink to="/profile"><img src={UserLogo} alt="userlogo" width={25} /></NavLink>
         <NavLink to="/wishlist"><img src={WishListLogo} alt="wishlistlogo" width={20} /></NavLink>
         <NavLink   to="/shoppingCart"><img src={ShoppingCartLogo} alt="cartlogo" width={18} /></NavLink><br />
-        <button onClick={handleLogOut} className="btn-style">Log Out</button>
+        <Button variant="outline-danger" onClick={handleLogOut} className="btn-style">Log Out</Button>
       </nav>
       </div>
     );
@@ -105,7 +106,7 @@ function Navbar() {
       </div>
       <NavLink  to="/profile"><img src={UserLogo} alt="userlogo" width={25} /></NavLink>
         <NavLink  to="/products/create">Add Product</NavLink>
-        <button onClick={handleLogOut} className="btn-style">Log Out</button>
+        <Button variant = "outline-danger" onClick={handleLogOut} className="btn-style">Log Out</Button>
     </nav>
     </div>
     )
