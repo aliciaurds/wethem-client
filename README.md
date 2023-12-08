@@ -117,4 +117,4 @@ My project arises from the idea of creating an online store where the importance
 
 ### Slides
 
-[Slides Link](www.your-slides-url-here.com)
+[Slides Link](https://docs.google.com/presentation/d/16Pr0paptFufgJA-4JrMSbrFSYZwRJOXXJViaFrs861c/edit?usp=sharing)
