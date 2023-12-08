@@ -36,15 +36,12 @@ function AdminCreate() {
     };
     try {
       await service.post("/products/create", newProduct);
-      // console.log(response);
       navigate("/all");
     } catch (err) {
-      console.log(err);
       navigate("/error");
     }
   };
   const handleFileUpload = async (event) => {
-    // console.log("The file to be uploaded is: ", e.target.files[0]);
 
     if (!event.target.files[0]) {
       // to prevent accidentally clicking the choose file button and not selecting a file

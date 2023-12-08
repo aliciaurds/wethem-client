@@ -19,7 +19,7 @@ function wishList() {
   const wishListProducts = async () => {
     try {
       const response = await service.get("/profile/wishlist")
-      console.log(response.data);
+
       setWishList(response.data)
       setIsLoading(false)
     }

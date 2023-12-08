@@ -5,7 +5,6 @@ import { RingLoader } from "react-spinners";
 import { Button, Form } from "react-bootstrap";
 function AdminEdit() {
   const params = useParams();
-  console.log(params.productId);
   const navigate = useNavigate();
 
   const [name, setName] = useState("");
@@ -34,7 +33,6 @@ function AdminEdit() {
       const response = await service.get(
         `/products/${params.productId}/details`
       );
-      // console.log(response);
       setName(response.data.name);
       setDescription(response.data.description);
       setPrice(response.data.price);
@@ -43,7 +41,6 @@ function AdminEdit() {
       setImage(response.data.image);
       setCategory(response.data.category);
     } catch (err) {
-      console.log(err);
       navigate("/error");
     }
   };
@@ -64,7 +61,6 @@ function AdminEdit() {
       await service.put(`/products/${params.productId}/update`, updatedProduct);
       navigate(`/products/${params.productId}/details`);
     } catch (err) {
-      console.log(err);
       navigate("/error");
     }
   };
@@ -73,7 +69,6 @@ function AdminEdit() {
       await service.delete(`/products/${params.productId}/delete`);
       navigate("/all");
     } catch (err) {
-      console.log(err);
       navigate("/error");
     }
   };

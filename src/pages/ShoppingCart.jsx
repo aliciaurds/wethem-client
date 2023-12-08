@@ -19,7 +19,7 @@ function ShoppingCart() {
   const getShoppingCartProducts = async () => {
     try {
       const response = await service.get("/profile/shoppingCart")
-      console.log(response.data);
+
       setShoppingCart(response.data)
       setIsLoading(false)
     }

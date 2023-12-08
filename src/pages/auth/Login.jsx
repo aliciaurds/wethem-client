@@ -26,7 +26,7 @@ function Login() {
       //before navigating
       await authenticateUser()
     
-      navigate("/"); //!Testing => luego /all
+      navigate("/"); 
     } catch (err) {
       console.log(err);
       if (err.response && err.response.status === 400) {

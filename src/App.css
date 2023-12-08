@@ -94,6 +94,14 @@ ul.category-menu li a {
   margin-top: 10px;
   margin-bottom: 50px;
  }
+ #submit {
+  border-color: rgb(218, 112, 112);
+  border-radius: 5px;
+  background: transparent;
+  color: rgb(192, 100, 100);
+  margin-top: 10px;
+  padding: 5px 10px;
+ }
 /*Pantallas de pc*/
 @media only screen and (min-width: 768px) {
   .nav-container {

@@ -15,7 +15,6 @@ import Form from 'react-bootstrap/Form';
 function ProductDetails() {
   const navigate = useNavigate();
   const params = useParams();
-  // console.log(params);
 
   //Create state
   const [details, setDetails] = useState(null);
@@ -33,17 +32,16 @@ function ProductDetails() {
     productData(), reviewsByProduct();
   }, []);
 
-  // console.log(reviews);
   const productData = async () => {
     try {
       const response = await service.get(
         `/products/${params.productId}/details`
       );
-      // console.log(response);
+
       setDetails(response.data);
       setIsLoading(false);
     } catch (err) {
-      // console.log(err);
+
       navigate("/error");
     }
   };

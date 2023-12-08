@@ -29,7 +29,7 @@ function ProfileEdit() {
   const userData = async () => {
     try {
       const response = await service.get('/profile');
-      console.log(response.data);
+
       setLoading(false)
       setUser(response.data);
     } catch (error) {

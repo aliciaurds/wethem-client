@@ -8,7 +8,6 @@ import service from "../services/config";
 
 function CategoriesDetails() {
   const params = useParams(); 
-  console.log(params.category);
   const [categoryProducts, setCategoryProducts] = useState([]);
 
   useEffect(() => {
